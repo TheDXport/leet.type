@@ -3,9 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 interface TypingAreaProps {
   lines: string[];
   onTypingStart: () => void;
+  onTypingComplete: () => void; // Callback to notify typing completion
 }
 
-const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart }) => {
+const TypingArea: React.FC<TypingAreaProps> = ({
+  lines,
+  onTypingStart,
+  onTypingComplete,
+}) => {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [typedChars, setTypedChars] = useState<string[]>([]);
   const [charIndex, setCharIndex] = useState(0);
@@ -91,6 +96,15 @@ const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart }) => {
         setTypedChars([]);
       }
       return;
+    }
+
+    // Check if the last character of the last line is typed (semicolon in this case)
+    if (
+      charIndex === currentLine.length - 1 &&
+      currentLineIndex === lines.length - 1
+    ) {
+      // Trigger the onTypingComplete callback as soon as the semicolon is typed
+      onTypingComplete();
     }
 
     // Move to the next line if end of line is reached

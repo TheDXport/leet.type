@@ -18,21 +18,21 @@ const FadeSwitch = () => {
   }, []);
 
   useEffect(() => {
-    if (counter >= 5) {
+    if (counter >= 0) {
       setShowComponentA(false);
 
       setTimeout(() => {
         setCompAFaded(true);
 
         setShowComponentB(true);
-      }, 500);
+      }, 200);
     }
   }, [counter]);
 
   return (
     <div>
       <div
-        className={`transition-opacity duration-500 ${
+        className={`transition-opacity duration-200 ${
           showComponentA ? "opacity-100" : "opacity-0"
         } `}
       >
@@ -42,7 +42,7 @@ const FadeSwitch = () => {
       <div
         className={`${
           showComponentB ? "opacity-100" : "opacity-0"
-        } transition-opacity duration-500`}
+        } transition-opacity duration-200`}
       >
         {showComponentB ? <Results /> : null}
       </div>
