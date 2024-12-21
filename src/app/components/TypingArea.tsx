@@ -122,37 +122,39 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="relative h-96 w-full outline-none"
+      className="relative h-96 w-full outline-none items-center flex flex-col"
     >
-      <div className="pl-56 absolute top-0 left-0 w-full">
-        {lines
-          .slice(currentLineIndex, currentLineIndex + 6)
-          .map((line, lineIndex) => (
-            <div key={lineIndex} className="transition-all duration-500">
-              <pre className="text-xl font-mono text-gray-300">
-                {line.split("").map((char, index) => {
-                  const isCursor = lineIndex === 0 && index === charIndex;
+      <div className="">
+        <div className="top-0 left-0 w-full">
+          {lines
+            .slice(currentLineIndex, currentLineIndex + 6)
+            .map((line, lineIndex) => (
+              <div key={lineIndex} className="transition-all duration-500">
+                <pre className="text-xs sm:text-xl md:text-2xl font-mono text-gray-300">
+                  {line.split("").map((char, index) => {
+                    const isCursor = lineIndex === 0 && index === charIndex;
 
-                  return (
-                    <span
-                      key={index}
-                      className={`${
-                        lineIndex === 0 && index < typedChars.length
-                          ? typedChars[index] === "correct"
-                            ? "text-white"
-                            : "text-red-500"
-                          : "text-gray-500"
-                      } ${
-                        isCursor && cursorVisible ? "bg-white text-black" : ""
-                      }`}
-                    >
-                      {char}
-                    </span>
-                  );
-                })}
-              </pre>
-            </div>
-          ))}
+                    return (
+                      <span
+                        key={index}
+                        className={`${
+                          lineIndex === 0 && index < typedChars.length
+                            ? typedChars[index] === "correct"
+                              ? "text-white"
+                              : "text-red-500"
+                            : "text-gray-500"
+                        } ${
+                          isCursor && cursorVisible ? "bg-white text-black" : ""
+                        }`}
+                      >
+                        {char}
+                      </span>
+                    );
+                  })}
+                </pre>
+              </div>
+            ))}
+        </div>
       </div>
     </div>
   );
