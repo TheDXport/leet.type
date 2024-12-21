@@ -62,15 +62,17 @@ const TypingArea: React.FC<TypingAreaProps> = ({
 
     // Handle typing logic for printable characters
     if (charIndex < currentLine.length) {
-      const isCorrect = char === currentChar;
+      if (char != "Enter") {
+        const isCorrect = char === currentChar;
 
-      setTypedChars((prev) => {
-        const updated = [...prev];
-        updated[charIndex] = isCorrect ? "correct" : "incorrect";
-        return updated;
-      });
+        setTypedChars((prev) => {
+          const updated = [...prev];
+          updated[charIndex] = isCorrect ? "correct" : "incorrect";
+          return updated;
+        });
 
-      setCharIndex((prev) => prev + 1);
+        setCharIndex((prev) => prev + 1);
+      }
     }
 
     // Handle space and line transition
@@ -86,7 +88,10 @@ const TypingArea: React.FC<TypingAreaProps> = ({
     }
 
     // Handle Enter key for line transition
-    if (char === "Enter" || (charIndex >= currentLine.length && char === " ")) {
+    if (
+      (char === "Enter" && charIndex >= currentLine.length) ||
+      (charIndex >= currentLine.length && char === " ")
+    ) {
       if (currentLineIndex < lines.length - 1) {
         const nextLine = lines[currentLineIndex + 1];
         const firstNonSpaceIndex = nextLine.search(/\S/); // Find the first non-space character
@@ -144,7 +149,9 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                               : "text-red-500"
                             : "text-gray-500"
                         } ${
-                          isCursor && cursorVisible ? "bg-white text-black" : ""
+                          isCursor && cursorVisible
+                            ? "bg-gray-600 text-black"
+                            : ""
                         }`}
                       >
                         {char}

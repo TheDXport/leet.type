@@ -16,7 +16,7 @@ const selectorBar: React.FC<NavbarProps> = ({
   const languages = ["Java", "Python", "Javascript", "C++"];
 
   return (
-    <div className="flex justify-center space-x-7 px-14 py-2 bg-gray-800 text-gray-200 rounded-2xl shadow hover:-gray-700 my-3">
+    <div className="flex justify-center space-x-7 px-7 sm:px-7 md:px-14 py-2 bg-gray-800 text-gray-200 rounded-2xl shadow hover:-gray-700 my-3">
       <button
         className="text-md flex-col flex justify-center"
         onClick={onAlgorithmClick}
@@ -31,7 +31,7 @@ const selectorBar: React.FC<NavbarProps> = ({
           <button
             key={language}
             onClick={() => onLanguageSelect(language)}
-            className={` px-2 md:px-4 rounded-lg shadow ${
+            className={` px-3 md:px-4 rounded-lg shadow ${
               selectedLanguage === language
                 ? "bg-gray-700 text-white"
                 : "bg-gray-800 text-gray-200"
