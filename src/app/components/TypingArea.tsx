@@ -19,7 +19,6 @@ const TypingArea: React.FC<TypingAreaProps> = ({
     null
   );
   const typingContainerRef = useRef<HTMLDivElement>(null);
-  const [prevIncorrect, setPrevIncorrect] = useState(false);
 
   useEffect(() => {
     const cursorBlink = setInterval(() => {
