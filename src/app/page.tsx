@@ -7,7 +7,7 @@ import FadeSwitch from "./components/FadeSwitch";
 
 const App: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
-  const [selectedAlgorithm, setSelectedAlgorithm] = useState("Binary Search");
+  // const [selectedAlgorithm, setSelectedAlgorithm] = useState("Binary Search");
   const [selectedLanguage, setSelectedLanguage] = useState("Java");
   const [typingComplete, setTypingComplete] = useState(false); // State to track typing completion
   const lines = [
@@ -40,7 +40,7 @@ const App: React.FC = () => {
       {!isTypingStarted && (
         <Navbar
           onAlgorithmClick={() => console.log("Open Algorithm Selector")}
-          selectedAlgorithm={selectedAlgorithm}
+          selectedAlgorithm={"Binary Search"}
           onLanguageSelect={(language) => setSelectedLanguage(language)}
           selectedLanguage={selectedLanguage}
         />
