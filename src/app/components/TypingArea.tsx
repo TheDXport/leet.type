@@ -127,7 +127,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="relative h-96 w-full outline-none items-center flex flex-col"
+      className="relative h-96 w-full overflow-x-clip overflow-y-clip outline-none items-center flex flex-col"
     >
       <div className="">
         <div className="top-0 left-0 w-full">
@@ -135,7 +135,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
             .slice(currentLineIndex, currentLineIndex + 6)
             .map((line, lineIndex) => (
               <div key={lineIndex} className="transition-all duration-500">
-                <pre className="text-xs sm:text-xl md:text-2xl font-mono text-gray-300">
+                <pre className="flex flex-wrap text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300">
                   {line.split("").map((char, index) => {
                     const isCursor = lineIndex === 0 && index === charIndex;
 

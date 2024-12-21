@@ -35,7 +35,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen overflow-x-auto bg-gray-900 text-gray-200 flex flex-col items-center justify-center">
+    <div className="min-h-screen overflow-x-auto bg-[#0D1017] text-gray-200 flex flex-col items-center justify-center">
       {!isTypingStarted && <Header />}
       {!isTypingStarted && (
         <Navbar

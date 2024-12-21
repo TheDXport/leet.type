@@ -1,4 +1,11 @@
 import React from "react";
+import { Albert_Sans } from "next/font/google";
+
+const albertSans = Albert_Sans({
+  variable: "--font-albert-sans",
+  subsets: ["latin"],
+  weight: ["700"],
+});
 
 interface NavbarProps {
   onAlgorithmClick: () => void;
@@ -16,14 +23,16 @@ const selectorBar: React.FC<NavbarProps> = ({
   const languages = ["Java", "Python", "Javascript", "C++"];
 
   return (
-    <div className="flex justify-center space-x-7 px-7 sm:px-7 md:px-14 py-2 bg-gray-800 text-gray-200 rounded-2xl shadow hover:-gray-700 my-3">
+    <div
+      className={`${albertSans.className} flex justify-center space-x-2 md:space-x-7 px-4 sm:px-7 md:px-14 py-2 bg-[#131721] text-[#CECECE] rounded-2xl shadow my-3`}
+    >
       <button
-        className="text-md flex-col flex justify-center"
+        className="text-xs md:text-lg flex-col flex px-2 justify-center"
         onClick={onAlgorithmClick}
       >
         {selectedAlgorithm}
       </button>
-      <div className="flex flex-col justify-center text-gray-900 text-2xl font-black">
+      <div className="flex flex-col justify-center text-[#131721] text-2xl md:font-black">
         <h1>|</h1>
       </div>
       <div className="flex space-x-1">
@@ -31,11 +40,11 @@ const selectorBar: React.FC<NavbarProps> = ({
           <button
             key={language}
             onClick={() => onLanguageSelect(language)}
-            className={` px-3 md:px-4 rounded-lg shadow ${
+            className={`text-xs md:text-lg px-2 md:px-4 rounded-lg shadow ${
               selectedLanguage === language
-                ? "bg-gray-700 text-white"
-                : "bg-gray-800 text-gray-200"
-            } hover:bg-gray-700`}
+                ? " text-[#CECECE]"
+                : " text-[#575E6C]"
+            } hover:text-[#808A9D]`}
           >
             {language}
           </button>
