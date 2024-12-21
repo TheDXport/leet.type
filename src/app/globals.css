@@ -15,17 +15,11 @@ body {
 
 .typing-container {
   position: relative;
-  width: 60%; /* Set a fixed width to prevent dynamic resizing */
+  width: 80%; /* Set a fixed width to prevent dynamic resizing */
   max-width: 800px; /* Ensure it doesn't grow too large */
   min-width: 400px; /* Provide a minimum width for smaller screens */
   margin: 0 auto; /* Center horizontally */
   text-align: left; /* Align text to the left to prevent center adjustment */
-}
-
-.line-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start; /* Prevent centering of text lines */
 }
 
 .typing-line {

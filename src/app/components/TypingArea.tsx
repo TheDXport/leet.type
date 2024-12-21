@@ -15,7 +15,11 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [typedChars, setTypedChars] = useState<string[]>([]);
   const [charIndex, setCharIndex] = useState(0);
   const [cursorVisible, setCursorVisible] = useState(true);
+  const [preservedLineIndex, setPreservedLineIndex] = useState<number | null>(
+    null
+  );
   const typingContainerRef = useRef<HTMLDivElement>(null);
+  const [prevIncorrect, setPrevIncorrect] = useState(false);
 
   useEffect(() => {
     const cursorBlink = setInterval(() => {
@@ -81,6 +85,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       const nextLine = lines[currentLineIndex + 1];
       if (nextLine) {
         const firstNonSpaceIndex = nextLine.search(/\S/); // Find first non-space character
+        setPreservedLineIndex(currentLineIndex);
         setCurrentLineIndex((prev) => prev + 1);
         setCharIndex(firstNonSpaceIndex >= 0 ? firstNonSpaceIndex : 0);
         setTypedChars([]);
@@ -91,11 +96,11 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       return;
     }
 
-    // Check if the last character of the last line is typed (e.g., semicolon)
     if (
       charIndex === currentLine.length - 1 &&
       currentLineIndex === lines.length - 1
     ) {
+      // Check if the last character of the last line is typed (e.g., semicolon)
       onTypingComplete(); // Trigger completion
     }
   };
@@ -107,13 +112,24 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       onKeyDown={handleTyping}
       className=" relative w-full overflow-hidden outline-none flex flex-col justify-center items-center "
     >
-      <div className="line-wrapper typing-container">
+      <div className="typing-container typing-line transition-all duration-500 text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300">
+        {preservedLineIndex !== null &&
+          preservedLineIndex < currentLineIndex && (
+            <div className="">
+              {lines[preservedLineIndex].split("").map((char, index) => (
+                <span key={index} className="text-gray-500">
+                  {char}
+                </span>
+              ))}
+            </div>
+          )}
+
         {lines
           .slice(currentLineIndex, currentLineIndex + 6)
           .map((line, lineIndex) => (
             <div
               key={lineIndex}
-              className={`typing-line transition-all duration-500 text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300`}
+              className={`typing-line transition-all duration-500 text-xs px-6 sm:text-sm md:text-xl lg:text-2xl font-mono text-gray-300`}
             >
               {line.split("").map((char, index) => {
                 const isCursor = lineIndex === 0 && index === charIndex;
