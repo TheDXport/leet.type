@@ -10,7 +10,7 @@ const albertSans = Albert_Sans({
 const Header = () => {
   return (
     <h1
-      className={`${albertSans.className} text-5xl font-bold text-[#65718C] text-center transition-opacity duration-500`}
+      className={`${albertSans.className} mb-2 text-5xl font-bold text-[#65718C] text-center transition-opacity duration-500`}
     >
       algotype
     </h1>

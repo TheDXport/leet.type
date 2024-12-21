@@ -31,21 +31,21 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const handleTyping = (e: React.KeyboardEvent<HTMLDivElement>) => {
     onTypingStart();
 
-    const char = e.key;
+    const keystroke = e.key;
     const currentLine = lines[currentLineIndex];
     const currentChar = currentLine[charIndex];
 
     // Skip non-printable keys
     if (
-      char.length > 1 &&
-      char !== "Backspace" &&
-      char !== " " &&
-      char !== "Enter"
+      keystroke.length > 1 &&
+      keystroke !== "Backspace" &&
+      keystroke !== " " &&
+      keystroke !== "Enter"
     )
       return;
 
     // Handle Backspace
-    if (char === "Backspace") {
+    if (keystroke === "Backspace") {
       if (charIndex > 0) {
         const prevCharIndex = charIndex - 1;
 
@@ -60,65 +60,43 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       return;
     }
 
-    // Handle typing logic for printable characters
+    // Handle printable characters
     if (charIndex < currentLine.length) {
-      if (char != "Enter") {
-        const isCorrect = char === currentChar;
+      const isCorrect = keystroke === currentChar;
 
-        setTypedChars((prev) => {
-          const updated = [...prev];
-          updated[charIndex] = isCorrect ? "correct" : "incorrect";
-          return updated;
-        });
+      setTypedChars((prev) => {
+        const updated = [...prev];
+        updated[charIndex] = isCorrect ? "correct" : "incorrect";
+        return updated;
+      });
 
-        setCharIndex((prev) => prev + 1);
-      }
+      setCharIndex((prev) => prev + 1);
     }
 
-    // Handle space and line transition
-    if (char === " " && charIndex === currentLine.length) {
+    // Handle space and Enter for line transition
+    if (
+      (keystroke === " " || keystroke === "Enter") &&
+      charIndex >= currentLine.length
+    ) {
       const nextLine = lines[currentLineIndex + 1];
       if (nextLine) {
         const firstNonSpaceIndex = nextLine.search(/\S/); // Find first non-space character
         setCurrentLineIndex((prev) => prev + 1);
         setCharIndex(firstNonSpaceIndex >= 0 ? firstNonSpaceIndex : 0);
         setTypedChars([]);
+      } else {
+        // If no next line, finish typing test
+        onTypingComplete();
       }
       return;
     }
 
-    // Handle Enter key for line transition
-    if (
-      (char === "Enter" && charIndex >= currentLine.length) ||
-      (charIndex >= currentLine.length && char === " ")
-    ) {
-      if (currentLineIndex < lines.length - 1) {
-        const nextLine = lines[currentLineIndex + 1];
-        const firstNonSpaceIndex = nextLine.search(/\S/); // Find the first non-space character
-
-        setCurrentLineIndex((prev) => prev + 1);
-        setCharIndex(firstNonSpaceIndex >= 0 ? firstNonSpaceIndex : 0);
-        setTypedChars([]);
-      }
-      return;
-    }
-
-    // Check if the last character of the last line is typed (semicolon in this case)
+    // Check if the last character of the last line is typed (e.g., semicolon)
     if (
       charIndex === currentLine.length - 1 &&
       currentLineIndex === lines.length - 1
     ) {
-      // Trigger the onTypingComplete callback as soon as the semicolon is typed
-      onTypingComplete();
-    }
-
-    // Move to the next line if end of line is reached
-    if (charIndex >= currentLine.length) {
-      if (currentLineIndex < lines.length - 1) {
-        setCurrentLineIndex((prev) => prev + 1);
-        setCharIndex(0);
-        setTypedChars([]);
-      }
+      onTypingComplete(); // Trigger completion
     }
   };
 
@@ -127,41 +105,38 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="relative h-96 w-full overflow-x-clip overflow-y-clip outline-none items-center flex flex-col"
+      className="typing-container relative w-full overflow-hidden outline-none flex flex-col justify-center items-center"
     >
-      <div className="">
-        <div className="top-0 left-0 w-full">
-          {lines
-            .slice(currentLineIndex, currentLineIndex + 6)
-            .map((line, lineIndex) => (
-              <div key={lineIndex} className="transition-all duration-500">
-                <pre className="flex flex-wrap text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300">
-                  {line.split("").map((char, index) => {
-                    const isCursor = lineIndex === 0 && index === charIndex;
+      <div className="line-wrapper">
+        {lines
+          .slice(currentLineIndex, currentLineIndex + 6)
+          .map((line, lineIndex) => (
+            <div
+              key={lineIndex}
+              className={`typing-line transition-all duration-500 text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300`}
+            >
+              {line.split("").map((char, index) => {
+                const isCursor = lineIndex === 0 && index === charIndex;
 
-                    return (
-                      <span
-                        key={index}
-                        className={`${
-                          lineIndex === 0 && index < typedChars.length
-                            ? typedChars[index] === "correct"
-                              ? "text-white"
-                              : "text-red-500"
-                            : "text-gray-500"
-                        } ${
-                          isCursor && cursorVisible
-                            ? "bg-gray-600 text-black"
-                            : ""
-                        }`}
-                      >
-                        {char}
-                      </span>
-                    );
-                  })}
-                </pre>
-              </div>
-            ))}
-        </div>
+                return (
+                  <span
+                    key={index}
+                    className={`${
+                      lineIndex === 0 && index < typedChars.length
+                        ? typedChars[index] === "correct"
+                          ? "text-white"
+                          : "text-red-500"
+                        : "text-gray-500"
+                    } ${
+                      isCursor && cursorVisible ? "bg-gray-600 text-black" : ""
+                    }`}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
+            </div>
+          ))}
       </div>
     </div>
   );
