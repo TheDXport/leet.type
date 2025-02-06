@@ -4,15 +4,14 @@ import { Albert_Sans } from "next/font/google";
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
   subsets: ["latin"],
-  weight: ["800"],
+  weight: ["700"],
 });
 
 const Header = () => {
   return (
     <h1
-      className={`${albertSans.className} mb-2 text-5xl font-bold text-[#65718C] text-center transition-opacity duration-500`}
-    >
-      algotype
+      className={`${albertSans.className} text-2xl sm:text-3xl md:text-5xl lg:text-5xl font-bold text-[#AFAEAE] text-center transition-opacity duration-500`}>
+      algtype
     </h1>
   );
 };
