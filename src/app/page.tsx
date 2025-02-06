@@ -1,63 +1,73 @@
 "use client";
-import React, { useState } from "react";
-import Header from "./components/header";
-import Navbar from "./components/SelectorBar";
+import React, { useState, useEffect } from "react";
+import ReactMarkdown from "react-markdown";
+
+import Header from "./components/Header";
+import SelectorBar from "./components/SelectorBar";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-const App: React.FC = () => {
+type AlgorithmName = "binarysearch"; // Extend this with more algorithms
+type LanguageName = "java" | "python" | "javascript" | "cpp"; // Extend with more languages
+
+const Main: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
-  // const [selectedAlgorithm, setSelectedAlgorithm] = useState("Binary Search");
-  const [selectedLanguage, setSelectedLanguage] = useState("Java");
-  const [typingComplete, setTypingComplete] = useState(false); // State to track typing completion
-  const lines = [
-    "public int binarySearch(int[] nums, int target) {",
-    "    int left = 0;",
-    "    int right = nums.length - 1;",
-    "    while (left <= right) {",
-    "        int mid = left + (right - left) / 2;",
-    "        if (nums[mid] == target) {",
-    "           return mid;",
-    "        }",
-    "        if (nums[mid] > target) {",
-    "           right = mid - 1;",
-    "        }",
-    "        else {",
-    "           left = mid + 1;",
-    "        }",
-    "      }",
-    "    return -1;",
-    "}",
-  ];
+  const [selectedAlgorithm, setSelectedAlgorithm] =
+    useState<AlgorithmName>("binarysearch");
+  const [selectedLanguage, setSelectedLanguage] =
+    useState<LanguageName>("java");
+  const [algorithmContent, setAlgorithmContent] = useState<string>("");
+  const [typingComplete, setTypingComplete] = useState(false);
+
+  // Fetch markdown content dynamically based on the selected algorithm and language
+  useEffect(() => {
+    const fetchAlgorithmContent = async () => {
+      try {
+        const filePath = `../../algorithms/${selectedAlgorithm}/${selectedLanguage}.md`;
+        const response = await fetch(filePath);
+        const content = await response.text();
+        setAlgorithmContent(content);
+      } catch (error) {
+        console.error("Failed to load algorithm content:", error);
+        setAlgorithmContent("Error loading content. Please try again.");
+      }
+    };
+
+    fetchAlgorithmContent();
+  }, [selectedAlgorithm, selectedLanguage]);
 
   const handleTypingComplete = () => {
     setTypingComplete(true); // Mark typing as complete
   };
 
   return (
-    <div className="min-h-screen overflow-x-auto  text-gray-200 bg-[#0D1012] flex flex-col items-center justify-center ">
-      {!isTypingStarted && <Header />}
-      {!isTypingStarted && (
-        <Navbar
-          onAlgorithmClick={() => console.log("Open Algorithm Selector")}
-          selectedAlgorithm={"Binary Search"}
-          onLanguageSelect={(language) => setSelectedLanguage(language)}
-          selectedLanguage={selectedLanguage}
-        />
-      )}
-
-      {/* If typing is complete, show the fade transition */}
-      {typingComplete ? (
-        <FadeSwitch />
-      ) : (
-        <TypingArea
-          lines={lines}
-          onTypingStart={() => setIsTypingStarted(true)}
-          onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
-        />
-      )}
+    <div>
+      <div className="min-h-screen overflow-x-auto flex flex-col items-center justify-center">
+        {!isTypingStarted && <Header />}
+        {!isTypingStarted && (
+          <SelectorBar
+            onAlgorithmSelect={(algorithm: AlgorithmName) =>
+              setSelectedAlgorithm(algorithm)
+            }
+            selectedAlgorithm={selectedAlgorithm}
+            onLanguageSelect={(language: LanguageName) =>
+              setSelectedLanguage(language)
+            }
+            selectedLanguage={selectedLanguage}
+          />
+        )}
+        {typingComplete ? (
+          <FadeSwitch />
+        ) : (
+          <TypingArea
+            lines={algorithmContent.split("\n")} // Split the markdown content into lines
+            onTypingStart={() => setIsTypingStarted(true)}
+            onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
+          />
+        )}
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Main;

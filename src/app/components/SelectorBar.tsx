@@ -8,24 +8,30 @@ const albertSans = Albert_Sans({
 });
 
 interface NavbarProps {
-  onAlgorithmClick: () => void;
+  onAlgorithmSelect: (algorithm: "binarysearch") => void; // Use the exact type here
   selectedAlgorithm: string;
-  onLanguageSelect: (language: string) => void;
+  onLanguageSelect: (
+    language: "java" | "python" | "javascript" | "cpp"
+  ) => void; // Explicit types for language
   selectedLanguage: string;
 }
 
-const selectorBar: React.FC<NavbarProps> = ({
-  onAlgorithmClick,
+const SelectorBar: React.FC<NavbarProps> = ({
+  onAlgorithmSelect,
   selectedAlgorithm,
   onLanguageSelect,
   selectedLanguage,
 }) => {
-  const languages = ["Java", "Python", "Javascript", "C++"];
+  const languages = ["java", "python", "javascript", "cpp"] as const;
 
   return (
     <div
-      className={`${albertSans.className} flex justify-center space-x-2 md:space-x-7 px-4 sm:px-7 md:px-14 sm:py-1 md:py-2 lg:py-3 bg-[#181D23] text-[#CECECE] rounded-2xl shadow my-3`}>
-      <button className="text-xs md:text-lg flex-col flex px-2 justify-center" onClick={onAlgorithmClick}>
+      className={`${albertSans.className} w-[45rem] flex justify-center space-x-2 md:space-x-7 px-4 sm:px-7 md:px-14 sm:py-[0.005rem] md:py-1 lg:py-1 bg-[#d8d8d8] text-[#1d1d1d] rounded-2xl shadow my-3`}
+    >
+      <button
+        className="text-xs md:text-lg flex-col flex px-2 justify-center"
+        onClick={() => onAlgorithmSelect("binarysearch")} // Pass a valid value
+      >
         {selectedAlgorithm}
       </button>
       <div className="flex flex-col justify-center text-[#0D1012] text-2xl md:font-black">
@@ -36,9 +42,12 @@ const selectorBar: React.FC<NavbarProps> = ({
           <button
             key={language}
             onClick={() => onLanguageSelect(language)}
-            className={`text-xs md:text-lg px-2 md:px-4 rounded-lg shadow ${
-              selectedLanguage === language ? " text-[#CECECE]" : " text-[#575E6C]"
-            } hover:text-[#808A9D]`}>
+            className={`text-xs md:text-lg px-2 md:px-4 rounded-lg  ${
+              selectedLanguage === language
+                ? " text-[#1d1d1d]"
+                : " text-[#66676a]"
+            } hover:text-[#1d1d1d]`}
+          >
             {language}
           </button>
         ))}
@@ -47,4 +56,4 @@ const selectorBar: React.FC<NavbarProps> = ({
   );
 };
 
-export default selectorBar;
+export default SelectorBar;

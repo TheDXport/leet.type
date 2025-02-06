@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect, useRef } from "react";
 
 interface TypingAreaProps {
@@ -119,7 +120,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart, onTypingC
                       ? typedChars[index] === "correct"
                         ? "text-white"
                         : "text-red-500"
-                      : "text-[#606060]"
+                      : "text-[#4f4f4f]"
                   } ${isCursor && cursorVisible ? "bg-gray-600 text-black" : ""}`}>
                   {char}
                 </span>
