@@ -1,18 +1,21 @@
-"use client";
 import React, { useState, useEffect, useRef } from "react";
 
 interface TypingAreaProps {
   lines: string[];
   onTypingStart: () => void;
-  onTypingComplete: () => void; // Callback to notify typing completion
+  onTypingComplete: (typedContent: string) => void; // Now expects typed content
 }
 
-const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart, onTypingComplete }) => {
+const TypingArea: React.FC<TypingAreaProps> = ({
+  lines,
+  onTypingStart,
+  onTypingComplete,
+}) => {
   const [currentLineIndex, setCurrentLineIndex] = useState(0);
   const [typedChars, setTypedChars] = useState<string[]>([]);
   const [charIndex, setCharIndex] = useState(0);
   const [cursorVisible, setCursorVisible] = useState(true);
-  // const [preservedLineIndex, setPreservedLineIndex] = useState<number | null>(null);
+  const [typedText, setTypedText] = useState(""); // Store all typed text
   const typingContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -34,7 +37,13 @@ const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart, onTypingC
     const currentChar = currentLine[charIndex];
 
     // Skip non-printable keys
-    if (keystroke.length > 1 && keystroke !== "Backspace" && keystroke !== " " && keystroke !== "Enter") return;
+    if (
+      keystroke.length > 1 &&
+      keystroke !== "Backspace" &&
+      keystroke !== " " &&
+      keystroke !== "Enter"
+    )
+      return;
 
     // Handle Backspace
     if (keystroke === "Backspace") {
@@ -48,6 +57,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart, onTypingC
         });
 
         setCharIndex(prevCharIndex);
+        setTypedText((prev) => prev.slice(0, -1)); // Remove last character from typedText
       }
       return;
     }
@@ -63,71 +73,78 @@ const TypingArea: React.FC<TypingAreaProps> = ({ lines, onTypingStart, onTypingC
       });
 
       setCharIndex((prev) => prev + 1);
+      setTypedText((prev) => prev + keystroke); // Append character to typedText
     }
 
     // Handle space and Enter for line transition
-    if ((keystroke === " " || keystroke === "Enter") && charIndex >= currentLine.length) {
+    if (
+      (keystroke === " " || keystroke === "Enter") &&
+      charIndex >= currentLine.length
+    ) {
       const nextLine = lines[currentLineIndex + 1];
       if (nextLine) {
-        const firstNonSpaceIndex = nextLine.search(/\S/); // Find first non-space character
-        // setPreservedLineIndex(currentLineIndex);
+        const firstNonSpaceIndex = nextLine.search(/\S/);
         setCurrentLineIndex((prev) => prev + 1);
         setCharIndex(firstNonSpaceIndex >= 0 ? firstNonSpaceIndex : 0);
         setTypedChars([]);
+        setTypedText((prev) => prev + "\n");
       } else {
-        // If no next line, finish typing test
-        onTypingComplete();
+        handleCompletion();
       }
       return;
     }
 
-    if (charIndex === currentLine.length - 1 && currentLineIndex === lines.length - 1) {
-      // Check if the last character of the last line is typed (e.g., semicolon)
-      onTypingComplete(); // Trigger completion
+    // Check if the last character of the last line is typed (e.g., semicolon)
+    if (
+      charIndex === currentLine.length - 1 &&
+      currentLineIndex === lines.length - 1
+    ) {
+      handleCompletion();
     }
   };
 
+  // ✅ Function to handle completion and send the typed content
+  const handleCompletion = () => {
+    onTypingComplete(typedText); // Pass the fully typed text
+  };
+
   return (
-    <div className="sm:w-[35rem] md:w-[40rem] lg:w-[46rem]">
-      <div
-        ref={typingContainerRef}
-        tabIndex={0}
-        onKeyDown={handleTyping}
-        className="items-start relative w-full overflow-hidden outline-none flex flex-col justify-center ">
-        {/* <div className="typing-container typing-line transition-all duration-500 text-xl px-1 sm:text-xl md:text-2xl font-mono">
-        {preservedLineIndex !== null && preservedLineIndex < currentLineIndex && (
-          <div className="pl-6">
-            {lines[preservedLineIndex].split("").map((char, index) => (
-              <span key={index} className="">
-                {char}
-              </span>
-            ))}
-          </div>
-        )} */}
+    <div
+      ref={typingContainerRef}
+      tabIndex={0}
+      onKeyDown={handleTyping}
+      className="relative w-full overflow-hidden outline-none flex flex-col justify-center items-center"
+    >
+      <div className="line-wrapper typing-container">
+        {lines
+          .slice(currentLineIndex, currentLineIndex + 6)
+          .map((line, lineIndex) => (
+            <div
+              key={lineIndex}
+              className={`typing-line transition-all duration-500 text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300`}
+            >
+              {line.split("").map((char, index) => {
+                const isCursor = lineIndex === 0 && index === charIndex;
 
-        {lines.slice(currentLineIndex, currentLineIndex + 6).map((line, lineIndex) => (
-          <div
-            key={lineIndex}
-            className={`items-start left-0 typing-line transition-all duration-500 text-xs px-1 sm:text-lg md:text-xl lg:text-2xl font-mono pb-2`}>
-            {line.split("").map((char, index) => {
-              const isCursor = lineIndex === 0 && index === charIndex;
-
-              return (
-                <span
-                  key={index}
-                  className={`${
-                    lineIndex === 0 && index < typedChars.length
-                      ? typedChars[index] === "correct"
-                        ? "text-white"
-                        : "text-red-500"
-                      : "text-[#4f4f4f]"
-                  } ${isCursor && cursorVisible ? "bg-gray-600 text-black" : ""}`}>
-                  {char}
-                </span>
-              );
-            })}
-          </div>
-        ))}
+                return (
+                  <span
+                    key={index}
+                    className={`${
+                      lineIndex === 0 && index < typedChars.length
+                        ? typedChars[index] === "correct"
+                          ? "text-white"
+                          : "text-red-500"
+                        : "text-gray-500"
+                    } ${
+                      isCursor && cursorVisible ? "bg-gray-600 text-black" : ""
+                    }`}
+                  >
+                    {char}
+                  </span>
+                );
+              })}
+            </div>
+          ))}
       </div>
     </div>
   );

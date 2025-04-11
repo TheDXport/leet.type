@@ -17,6 +17,9 @@ const Main: React.FC = () => {
     useState<LanguageName>("java");
   const [algorithmContent, setAlgorithmContent] = useState<string>("");
   const [typingComplete, setTypingComplete] = useState(false);
+  const [userTypedContent, setUserTypedContent] = useState<string>("");
+  const [timeElapsed, setTimeElapsed] = useState<number>(0);
+  const [startTime, setStartTime] = useState<number | null>(null);
 
   // Fetch markdown content dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -35,8 +38,18 @@ const Main: React.FC = () => {
     fetchAlgorithmContent();
   }, [selectedAlgorithm, selectedLanguage]);
 
-  const handleTypingComplete = () => {
-    setTypingComplete(true); // Mark typing as complete
+  const handleTypingStart = () => {
+    setIsTypingStarted(true);
+    setStartTime(Date.now()); // Set the start time when typing begins
+  };
+
+  const handleTypingComplete = (typedContent: string) => {
+    setUserTypedContent(typedContent);
+    if (startTime) {
+      const endTime = Date.now();
+      setTimeElapsed((endTime - startTime) / 1000); // Convert ms to seconds
+    }
+    setTypingComplete(true);
   };
 
   return (
@@ -56,11 +69,17 @@ const Main: React.FC = () => {
           />
         )}
         {typingComplete ? (
-          <FadeSwitch />
+          <FadeSwitch
+            algorithmName={selectedAlgorithm}
+            programmingLanguage={selectedLanguage}
+            originalContent={algorithmContent}
+            typedContent={userTypedContent}
+            totalTimeSpent={timeElapsed}
+          />
         ) : (
           <TypingArea
             lines={algorithmContent.split("\n")} // Split the markdown content into lines
-            onTypingStart={() => setIsTypingStarted(true)}
+            onTypingStart={handleTypingStart} // Pass the callback to TypingArea
             onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
           />
         )}
