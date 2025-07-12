@@ -55,8 +55,18 @@ const Main: React.FC = () => {
   return (
     <div>
       <div className="min-h-screen overflow-x-auto flex flex-col items-center justify-center">
-        {!isTypingStarted && <Header />}
-        {!isTypingStarted && (
+        <div
+          className={`transition-opacity duration-500 ${
+            isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <Header />
+        </div>
+        <div
+          className={`transition-opacity duration-500 ${
+            isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
           <SelectorBar
             onAlgorithmSelect={(algorithm: AlgorithmName) =>
               setSelectedAlgorithm(algorithm)
@@ -67,7 +77,7 @@ const Main: React.FC = () => {
             }
             selectedLanguage={selectedLanguage}
           />
-        )}
+        </div>
         {typingComplete ? (
           <FadeSwitch
             algorithmName={selectedAlgorithm}
