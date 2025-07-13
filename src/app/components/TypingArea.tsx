@@ -27,7 +27,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
 
   useEffect(() => {
     typingContainerRef.current?.focus();
-  }, []);
+  }, [lines]);
 
   const handleTyping = (e: React.KeyboardEvent<HTMLDivElement>) => {
     onTypingStart();
@@ -50,14 +50,10 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       if (charIndex > 0) {
         const prevCharIndex = charIndex - 1;
 
-        setTypedChars((prev) => {
-          const updated = [...prev];
-          updated[prevCharIndex] = "pending"; // Set to neutral
-          return updated;
-        });
+        setTypedChars((prev) => prev.slice(0, prevCharIndex));
 
         setCharIndex(prevCharIndex);
-        setTypedText((prev) => prev.slice(0, -1)); // Remove last character from typedText
+        setTypedText((prev) => prev.slice(0, -1));
       }
       return;
     }
@@ -133,13 +129,15 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                       lineIndex === 0 && index < typedChars.length
                         ? typedChars[index] === "correct"
                           ? "text-white"
-                          : "text-red-500"
+                          : char === " "
+                            ? "bg-red-500"
+                            : "text-red-500"
                         : "text-gray-500"
                     } ${
                       isCursor && cursorVisible ? "bg-gray-600 text-black" : ""
                     }`}
                   >
-                    {char}
+                    {char === " " ? "\u00A0" : char}
                   </span>
                 );
               })}
