@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 interface TypingAreaProps {
   lines: string[];
   onTypingStart: () => void;
-  onTypingComplete: (typedContent: string) => void; // Now expects typed content
+  onTypingComplete: (totalErrors: number) => void;
 }
 
 const TypingArea: React.FC<TypingAreaProps> = ({
@@ -15,8 +15,14 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [typedChars, setTypedChars] = useState<string[]>([]);
   const [charIndex, setCharIndex] = useState(0);
   const [cursorVisible, setCursorVisible] = useState(true);
-  const [typedText, setTypedText] = useState(""); // Store all typed text
+  const [errorCount, setErrorCount] = useState(0);
   const typingContainerRef = useRef<HTMLDivElement>(null);
+
+  const totalChars = lines
+    .join("\n")
+    .split("\n")
+    .map((line) => line.replace(/^\s+/, ""))
+    .join("\n").length - 1;
 
   useEffect(() => {
     const cursorBlink = setInterval(() => {
@@ -53,7 +59,6 @@ const TypingArea: React.FC<TypingAreaProps> = ({
         setTypedChars((prev) => prev.slice(0, prevCharIndex));
 
         setCharIndex(prevCharIndex);
-        setTypedText((prev) => prev.slice(0, -1));
       }
       return;
     }
@@ -62,6 +67,12 @@ const TypingArea: React.FC<TypingAreaProps> = ({
     if (charIndex < currentLine.length) {
       const isCorrect = keystroke === currentChar;
 
+      if (!isCorrect) {
+        setErrorCount((prev) =>
+          prev < totalChars ? prev + 1 : prev
+        );
+      }
+
       setTypedChars((prev) => {
         const updated = [...prev];
         updated[charIndex] = isCorrect ? "correct" : "incorrect";
@@ -69,7 +80,6 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       });
 
       setCharIndex((prev) => prev + 1);
-      setTypedText((prev) => prev + keystroke); // Append character to typedText
     }
 
     // Handle space and Enter for line transition
@@ -83,7 +93,6 @@ const TypingArea: React.FC<TypingAreaProps> = ({
         setCurrentLineIndex((prev) => prev + 1);
         setCharIndex(firstNonSpaceIndex >= 0 ? firstNonSpaceIndex : 0);
         setTypedChars([]);
-        setTypedText((prev) => prev + "\n");
       } else {
         handleCompletion();
       }
@@ -101,7 +110,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
 
   // ✅ Function to handle completion and send the typed content
   const handleCompletion = () => {
-    onTypingComplete(typedText); // Pass the fully typed text
+    onTypingComplete(errorCount);
   };
 
   return (

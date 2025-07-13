@@ -4,8 +4,8 @@ interface ResultsProps {
   algorithmName: string;
   programmingLanguage: string;
   originalContent: string; // Full content of the algorithm from the markdown file
-  typedContent: string; // Full content typed by the user
   totalTimeSpent: number; // Total time spent typing (in seconds)
+  totalErrors: number;
 }
 
 // Count characters excluding leading indentation spaces on each line
@@ -22,8 +22,8 @@ const Results: React.FC<ResultsProps> = ({
   algorithmName,
   programmingLanguage,
   originalContent,
-  typedContent,
   totalTimeSpent,
+  totalErrors,
 }) => {
   // Split content into words for WPM calculation
   const originalWords = originalContent.split(/\s+/);
@@ -34,34 +34,11 @@ const Results: React.FC<ResultsProps> = ({
 
   // Calculate WPM
   const wpm = wordCount / ((totalTimeSpent * 10) / 60);
-  console.log("WPM" + wpm);
 
-  // Compare characters for accuracy and errors
-  const originalChars = originalContent.split("");
-  const typedChars = typedContent.split("");
+  const errorCount = totalErrors;
 
-  let correctChars = 0;
-  let errorCount = 0;
-
-  originalChars.forEach((char, index) => {
-    if (typedChars[index] === char) {
-      correctChars++;
-    } else if (typedChars[index] !== undefined) {
-      console.log(
-        `Mismatch at index ${index}: Expected '${char}' (${char.charCodeAt(
-          0
-        )}), Got '${typedChars[index]}' (${typedChars[index]?.charCodeAt(0)})`
-      );
-      errorCount++;
-    }
-  });
-  console.log("Correct" + correctChars);
-  console.log("Error count" + errorCount);
-  console.log("originalchars:" + originalChars);
-
-  // Calculate Accuracy
-  const accuracy = (correctChars / (originalChars.length - 1)) * 100;
-  console.log("A" + accuracy);
+  // Calculate Accuracy based on total errors made during typing
+  const accuracy = ((totalChars - errorCount) / totalChars) * 100;
 
   // Calculate Time Per Word
   const timePerWord = (totalTimeSpent * 10) / wordCount;

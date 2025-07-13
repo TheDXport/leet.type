@@ -6,16 +6,16 @@ interface FadeSwitchProps {
   algorithmName: string;
   programmingLanguage: string;
   originalContent: string;
-  typedContent: string;
   totalTimeSpent: number;
+  totalErrors: number;
 }
 
 const FadeSwitch: React.FC<FadeSwitchProps> = ({
   algorithmName,
   programmingLanguage,
   originalContent,
-  typedContent,
   totalTimeSpent,
+  totalErrors,
 }) => {
   const [counter, setCounter] = useState<number>(0);
   const [showComponentA, setShowComponentA] = useState<boolean>(true);
@@ -61,8 +61,8 @@ const FadeSwitch: React.FC<FadeSwitchProps> = ({
             algorithmName={algorithmName}
             programmingLanguage={programmingLanguage}
             originalContent={originalContent}
-            typedContent={typedContent}
             totalTimeSpent={totalTimeSpent}
+            totalErrors={totalErrors}
           />
         ) : null}
       </div>
