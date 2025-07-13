@@ -10,10 +10,12 @@ interface ResultsProps {
 
 // Count characters excluding leading indentation spaces on each line
 const countNonIndentChars = (content: string): number => {
-  return content
-    .split("\n")
-    .map((line) => line.replace(/^\s+/, ""))
-    .join("\n").length;
+  return (
+    content
+      .split("\n")
+      .map((line) => line.replace(/^\s+/, ""))
+      .join("\n").length - 1
+  );
 };
 
 const Results: React.FC<ResultsProps> = ({
@@ -31,7 +33,7 @@ const Results: React.FC<ResultsProps> = ({
   const totalChars = countNonIndentChars(originalContent);
 
   // Calculate WPM
-  const wpm = wordCount / ((totalTimeSpent * 10) / 60);
+  const wpm = wordCount / (totalTimeSpent / 60);
   console.log("WPM" + wpm);
 
   // Compare characters for accuracy and errors
@@ -62,7 +64,7 @@ const Results: React.FC<ResultsProps> = ({
   console.log("A" + accuracy);
 
   // Calculate Time Per Word
-  const timePerWord = (totalTimeSpent * 10) / wordCount;
+  const timePerWord = totalTimeSpent / wordCount;
 
   return (
     <div className="results-container flex flex-col items-center">
@@ -78,8 +80,7 @@ const Results: React.FC<ResultsProps> = ({
           <strong>Programming Language:</strong> {programmingLanguage}
         </p>
         <p>
-          <strong>Total Time Spent:</strong> {(totalTimeSpent * 10).toFixed(2)}{" "}
-          seconds
+          <strong>Total Time Spent:</strong> {totalTimeSpent.toFixed(2)} seconds
         </p>
         <p>
           <strong>WPM:</strong> {wpm.toFixed(0)} words per minute
