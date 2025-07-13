@@ -60,30 +60,48 @@ const Header: React.FC<HeaderProps> = ({
         </span>
 
         <span className="">\</span>
-        <div>
+        <div className="hover:text-[#f6f6f6] transition-colors duration-[350ms]">
           <Link href="https://leetcode.com">Leetcode.com</Link>{" "}
         </div>
         <span className="">\</span>
         <div>
           <DropdownMenu>
-            <DropdownMenuTrigger className="rounded-lg hover:text-[#f6f6f6] flex items-center">
+            <DropdownMenuTrigger className="rounded-lg hover:text-[#f6f6f6] transition-colors duration-[350ms] flex items-center">
               {selectedLanguage}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-white text-[#1d1d1d]">
+            <DropdownMenuContent className="bg-black text-[#f6f6f6]">
               {languages.map((language) => (
                 <DropdownMenuItem
                   key={language}
                   onSelect={() => onLanguageSelect(language)}
-                  className={selectedLanguage === language ? "bg-gray-200" : ""}
+                  className={`flex
+                    ${
+                      selectedLanguage === language
+                        ? "bg-black"
+                        : "bg-black text-[#c8c7c7]"
+                    } hover:bg-black hover:text-white cursor-pointer transition-colors duration-200`}
                 >
                   {language}
+                  {selectedLanguage === language && (
+                    <svg
+                      className="ml-auto w-4 h-4"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M16.704 5.04a.75.75 0 010 1.06l-7.35 7.35a.75.75 0 01-1.06 0L3.296 8.394a.75.75 0 111.06-1.06L8.5 11.478l6.144-6.144a.75.75 0 011.06 0z"
+                        clipRule="evenodd"
+                      />
+                    </svg>
+                  )}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
         <span className="">\</span>
-        <div>
+        <div className="">
           <Combobox
             options={algorithms}
             value={selectedAlgorithm}

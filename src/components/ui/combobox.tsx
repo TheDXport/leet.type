@@ -47,27 +47,30 @@ const Combobox: React.FC<ComboboxProps> = ({
   const menuId = React.useId();
 
   return (
-    <div ref={boxRef} className="relative">
+    <div
+      ref={boxRef}
+      className="relative hover:text-[#f6f6f6] transition-colors duration-[350ms]"
+    >
       <button
         type="button"
         role="combobox"
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className="w-36 flex text-center justify-between items-center rounded px-1 py-1"
+        className="w-96 flex text-center justify-between items-center rounded px-1 py-1 "
       >
         {value || placeholder}
       </button>
       {(open || closing) && (
         <div
           id={menuId}
-          className={`absolute mt-1 w-36 bg-white shadow rounded-xl z-10 ${
+          className={`absolute mt-1 w-36 bg-[#0e0e0e] shadow rounded-xl z-10 ${
             open ? "dropdown-animation" : "dropdown-close-animation"
           }`}
         >
           <input
             placeholder="Search..."
-            className="h-9 w-full border-b px-2 outline-none text-sm"
+            className="h-9 w-full border-b border-[#303030] px-2 outline-none text-sm bg-black"
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           />
@@ -81,9 +84,9 @@ const Combobox: React.FC<ComboboxProps> = ({
                     closeMenu();
                     setFilter("");
                   }}
-                  className={`px-4 py-2 text-sm flex items-center hover:bg-gray-100 ${
-                    value === option ? "bg-gray-200" : ""
-                  }`}
+                  className={`px-4 py-2 text-sm flex items-center  ${
+                    value === option ? "text-white" : "text-[#c8c7c7]"
+                  } hover:text-white cursor-pointer transition-colors duration-200`}
                 >
                   {option}
                   {value === option && (
