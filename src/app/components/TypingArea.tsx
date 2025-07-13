@@ -126,7 +126,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                   <span
                     key={index}
                     className={`${
-                      lineIndex === 0 && index < typedChars.length
+                      lineIndex === 0 && typedChars[index] !== undefined
                         ? typedChars[index] === "correct"
                           ? "text-white"
                           : char === " "

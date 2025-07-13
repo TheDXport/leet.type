@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 
 interface ComboboxProps {
   options: string[];
@@ -16,7 +16,29 @@ const Combobox: React.FC<ComboboxProps> = ({
   placeholder = "Select option...",
 }) => {
   const [open, setOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const [filter, setFilter] = useState("");
+  const boxRef = useRef<HTMLDivElement>(null);
+
+  const closeMenu = useCallback(() => {
+    setClosing(true);
+    setOpen(false);
+    setTimeout(() => setClosing(false), 200);
+  }, []);
+
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (boxRef.current && !boxRef.current.contains(e.target as Node)) {
+        closeMenu();
+      }
+    };
+    if (open) {
+      document.addEventListener("mousedown", handleClick);
+    } else {
+      document.removeEventListener("mousedown", handleClick);
+    }
+    return () => document.removeEventListener("mousedown", handleClick);
+  }, [open, closeMenu]);
 
   const filtered = options.filter((option) =>
     option.toLowerCase().includes(filter.toLowerCase())
@@ -25,21 +47,21 @@ const Combobox: React.FC<ComboboxProps> = ({
   const menuId = React.useId();
 
   return (
-    <div className="relative">
+    <div ref={boxRef} className="relative">
       <button
         type="button"
         role="combobox"
         aria-expanded={open}
         aria-controls={menuId}
-        onClick={() => setOpen(!open)}
+        onClick={() => (open ? closeMenu() : setOpen(true))}
         className="w-36 flex text-center justify-between items-center rounded px-1 py-1 text-xs md:text-lg"
       >
         {value || placeholder}
       </button>
-      {open && (
+      {(open || closing) && (
         <div
           id={menuId}
-          className="absolute mt-1 w-36 bg-white shadow rounded-xl z-10 dropdown-animation"
+          className={`absolute mt-1 w-36 bg-white shadow rounded-xl z-10 ${open ? "dropdown-animation" : "dropdown-close-animation"}`}
         >
           <input
             placeholder="Search..."
@@ -54,7 +76,7 @@ const Combobox: React.FC<ComboboxProps> = ({
                   key={option}
                   onMouseDown={() => {
                     onSelect(option);
-                    setOpen(false);
+                    closeMenu();
                     setFilter("");
                   }}
                   className={`px-4 py-2 text-sm flex items-center hover:bg-gray-100 ${
