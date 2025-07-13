@@ -18,11 +18,12 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [errorCount, setErrorCount] = useState(0);
   const typingContainerRef = useRef<HTMLDivElement>(null);
 
-  const totalChars = lines
-    .join("\n")
-    .split("\n")
-    .map((line) => line.replace(/^\s+/, ""))
-    .join("\n").length - 1;
+  const totalChars =
+    lines
+      .join("\n")
+      .split("\n")
+      .map((line) => line.replace(/^\s+/, ""))
+      .join("\n").length - 1;
 
   useEffect(() => {
     const cursorBlink = setInterval(() => {
@@ -68,9 +69,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       const isCorrect = keystroke === currentChar;
 
       if (!isCorrect) {
-        setErrorCount((prev) =>
-          prev < totalChars ? prev + 1 : prev
-        );
+        setErrorCount((prev) => (prev < totalChars ? prev + 1 : prev));
       }
 
       setTypedChars((prev) => {
@@ -118,15 +117,15 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="relative w-full overflow-hidden outline-none flex flex-col justify-center items-center"
+      className="w-full overflow-hidden outline-none flex flex-col "
     >
-      <div className="line-wrapper typing-container">
+      <div className="space-y-4">
         {lines
           .slice(currentLineIndex, currentLineIndex + 6)
           .map((line, lineIndex) => (
             <div
               key={lineIndex}
-              className={`typing-line transition-all duration-500 text-xl px-6 sm:text-xl md:text-2xl font-mono text-gray-300`}
+              className={`transition-all duration-500 text-xl sm:text-xl md:text-2xl font-mono text-gray-300`}
             >
               {line.split("").map((char, index) => {
                 const isCursor = lineIndex === 0 && index === charIndex;

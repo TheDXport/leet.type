@@ -54,14 +54,16 @@ const Combobox: React.FC<ComboboxProps> = ({
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className="w-36 flex text-center justify-between items-center rounded px-1 py-1 text-xs md:text-lg"
+        className="w-36 flex text-center justify-between items-center rounded px-1 py-1"
       >
         {value || placeholder}
       </button>
       {(open || closing) && (
         <div
           id={menuId}
-          className={`absolute mt-1 w-36 bg-white shadow rounded-xl z-10 ${open ? "dropdown-animation" : "dropdown-close-animation"}`}
+          className={`absolute mt-1 w-36 bg-white shadow rounded-xl z-10 ${
+            open ? "dropdown-animation" : "dropdown-close-animation"
+          }`}
         >
           <input
             placeholder="Search..."
