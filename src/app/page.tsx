@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import Header from "./components/Head";
-import SelectorBar from "./components/SelectorBar";
+import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
@@ -55,9 +54,12 @@ const Main: React.FC = () => {
   return (
     <div>
       <div className="min-h-screen overflow-x-auto flex flex-col items-center justify-center">
-        {!isTypingStarted && <Header />}
-        {!isTypingStarted && (
-          <SelectorBar
+        <div
+          className={`transition-opacity duration-500 ${
+            isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
+          }`}
+        >
+          <Header
             onAlgorithmSelect={(algorithm: AlgorithmName) =>
               setSelectedAlgorithm(algorithm)
             }
@@ -67,7 +69,7 @@ const Main: React.FC = () => {
             }
             selectedLanguage={selectedLanguage}
           />
-        )}
+        </div>
         {typingComplete ? (
           <FadeSwitch
             algorithmName={selectedAlgorithm}
