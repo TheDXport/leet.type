@@ -117,9 +117,9 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="relative w-full overflow-hidden outline-none flex flex-col justify-center items-center"
+      className="w-full overflow-hidden outline-none flex flex-col "
     >
-      <div className="line-wrapper typing-container">
+      <div className="space-y-4">
         {lines
           .slice(currentLineIndex, currentLineIndex + 6)
           .map((line, lineIndex) => (
