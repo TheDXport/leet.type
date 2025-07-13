@@ -73,6 +73,9 @@ const Results: React.FC<ResultsProps> = ({
           <strong>Total Errors:</strong> {errorCount}
         </p>
       </div>
+      <pre className="mt-4 w-full overflow-auto bg-gray-800 p-4 rounded">
+        <code className="whitespace-pre text-left text-sm">{originalContent}</code>
+      </pre>
     </div>
   );
 };

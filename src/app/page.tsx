@@ -20,11 +20,21 @@ const Main: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
 
-  // Fetch markdown content dynamically based on the selected algorithm and language
+  // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
     const fetchAlgorithmContent = async () => {
       try {
-        const filePath = `../../algorithms/${selectedAlgorithm}/${selectedLanguage}.md`;
+        const algorithmFolder = selectedAlgorithm.replace(/\s+/g, "");
+        const baseName = selectedAlgorithm.replace(/\s+/g, "").toLowerCase();
+
+        const extensions: Record<LanguageName, string> = {
+          Java: "java",
+          Python: "py",
+          Javascript: "js",
+          Cpp: "cpp",
+        };
+
+        const filePath = `../../algorithms/${algorithmFolder}/${baseName}.${extensions[selectedLanguage]}`;
         const response = await fetch(filePath);
         const content = await response.text();
         setAlgorithmContent(content);
