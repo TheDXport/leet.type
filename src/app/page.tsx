@@ -1,8 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 
-import Header from "./components/Head";
-import SelectorBar from "./components/SelectorBar";
+import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
@@ -60,14 +59,7 @@ const Main: React.FC = () => {
             isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
           }`}
         >
-          <Header />
-        </div>
-        <div
-          className={`transition-opacity duration-500 ${
-            isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
-          }`}
-        >
-          <SelectorBar
+          <Header
             onAlgorithmSelect={(algorithm: AlgorithmName) =>
               setSelectedAlgorithm(algorithm)
             }
