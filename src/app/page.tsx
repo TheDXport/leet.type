@@ -38,8 +38,10 @@ const Main: React.FC = () => {
   }, [selectedAlgorithm, selectedLanguage]);
 
   const handleTypingStart = () => {
-    setIsTypingStarted(true);
-    setStartTime(Date.now()); // Set the start time when typing begins
+    if (!isTypingStarted) {
+      setIsTypingStarted(true);
+      setStartTime(Date.now());
+    }
   };
 
   const handleTypingComplete = (typedContent: string) => {
