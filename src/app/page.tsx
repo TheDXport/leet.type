@@ -5,13 +5,13 @@ import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-type AlgorithmName = "Binary Search" | "Valid Perfect Square"; // Extend this with more algorithms
+type AlgorithmName = "704. Binary Search" | "Valid Perfect Square"; // Extend this with more algorithms
 type LanguageName = "Java" | "Python" | "Javascript" | "Cpp"; // Extend with more languages
 
 const Main: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
   const [selectedAlgorithm, setSelectedAlgorithm] =
-    useState<AlgorithmName>("Binary Search");
+    useState<AlgorithmName>("704. Binary Search");
   const [selectedLanguage, setSelectedLanguage] =
     useState<LanguageName>("Java");
   const [algorithmContent, setAlgorithmContent] = useState<string>("");

@@ -9,9 +9,12 @@ import {
 import Combobox from "@/components/ui/combobox";
 import Link from "next/link";
 
-type AlgorithmName = "Binary Search" | "Valid Perfect Square";
+type AlgorithmName = "704. Binary Search" | "Valid Perfect Square";
 
-const algorithms: AlgorithmName[] = ["Binary Search", "Valid Perfect Square"];
+const algorithms: AlgorithmName[] = [
+  "704. Binary Search",
+  "Valid Perfect Square",
+];
 
 const rem = REM({
   variable: "--font-rem",
@@ -54,10 +57,10 @@ const Header: React.FC<HeaderProps> = ({
         </span>
 
         <span className="">\</span>
-        <div>
-          <Link href="https://leetcode.com" className="interactive-item">
+        <div className="interactive-item">
+          <Link href="https://leetcode.com" className="">
             Leetcode.com
-          </Link>{" "}
+          </Link>
         </div>
         <span className="">\</span>
         <div>
@@ -75,7 +78,7 @@ const Header: React.FC<HeaderProps> = ({
                       selectedLanguage === language
                         ? "bg-black"
                         : "bg-black text-[#c8c7c7]"
-                    } hover:bg-black hover:text-white cursor-pointer transition-colors duration-200`}
+                    } hover:bg-black hover:text-black cursor-pointer transition-colors duration-200`}
                 >
                   {language}
                   {selectedLanguage === language && (
