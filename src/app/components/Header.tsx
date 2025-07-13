@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Combobox from "@/components/ui/combobox";
 
-type AlgorithmName = "Binary Search";
+type AlgorithmName = "Binary Search" | "Valid Perfect Square";
 
-const algorithms: AlgorithmName[] = ["Binary Search"];
+const algorithms: AlgorithmName[] = ["Binary Search", "Valid Perfect Square"];
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",

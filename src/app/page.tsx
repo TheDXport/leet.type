@@ -5,7 +5,7 @@ import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-type AlgorithmName = "Binary Search"; // Extend this with more algorithms
+type AlgorithmName = "Binary Search" | "Valid Perfect Square"; // Extend this with more algorithms
 type LanguageName = "Java" | "Python" | "Javascript" | "Cpp"; // Extend with more languages
 
 const Main: React.FC = () => {

@@ -10,4 +10,3 @@ def binary_search(nums, target):
         else:
             right = mid - 1
     return -1
-

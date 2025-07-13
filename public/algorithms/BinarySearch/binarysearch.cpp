@@ -13,4 +13,3 @@ int binarySearch(const std::vector<int>& nums, int target) {
     }
     return -1;
 }
-
