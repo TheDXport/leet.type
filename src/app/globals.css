@@ -40,3 +40,18 @@ body {
 .dropdown-animation {
   animation: fade-in-down 0.2s ease-in-out;
 }
+
+@keyframes fade-out-up {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+}
+
+.dropdown-close-animation {
+  animation: fade-out-up 0.2s ease-in-out forwards;
+}
