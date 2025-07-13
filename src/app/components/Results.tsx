@@ -33,7 +33,7 @@ const Results: React.FC<ResultsProps> = ({
   const totalChars = countNonIndentChars(originalContent);
 
   // Calculate WPM
-  const wpm = wordCount / ((totalTimeSpent * 10) / 60);
+  const wpm = wordCount / (totalTimeSpent / 60);
 
   const errorCount = totalErrors;
 
@@ -41,7 +41,7 @@ const Results: React.FC<ResultsProps> = ({
   const accuracy = ((totalChars - errorCount) / totalChars) * 100;
 
   // Calculate Time Per Word
-  const timePerWord = (totalTimeSpent * 10) / wordCount;
+  const timePerWord = totalTimeSpent / wordCount;
 
   return (
     <div className="results-container flex flex-col items-center text-white">
@@ -57,7 +57,7 @@ const Results: React.FC<ResultsProps> = ({
           <strong>Programming Language:</strong> {programmingLanguage}
         </p>
         <p>
-          <strong>Total Time Spent:</strong> {(totalTimeSpent * 10).toFixed(2)}{" "}
+          <strong>Total Time Spent:</strong> {totalTimeSpent.toFixed(2)}{" "}
           seconds
         </p>
         <p>
