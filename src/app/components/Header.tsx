@@ -54,13 +54,15 @@ const Header: React.FC<HeaderProps> = ({
         </span>
 
         <span className="">\</span>
-        <div className="hover:text-[#f6f6f6] transition-colors duration-[350ms]">
-          <Link href="https://leetcode.com">Leetcode.com</Link>{" "}
+        <div>
+          <Link href="https://leetcode.com" className="interactive-item">
+            Leetcode.com
+          </Link>{" "}
         </div>
         <span className="">\</span>
         <div>
           <DropdownMenu>
-            <DropdownMenuTrigger className="rounded-lg hover:text-[#f6f6f6] transition-colors duration-[350ms] flex items-center">
+            <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center">
               {selectedLanguage}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-black text-[#f6f6f6]">

@@ -68,7 +68,7 @@ const Main: React.FC = () => {
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center mr-52 ">
         <div className="w-full max-w-4xl">
           <div
-            className={`transition-opacity duration-500${
+            className={`transition-opacity duration-500 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
             }`}
           >

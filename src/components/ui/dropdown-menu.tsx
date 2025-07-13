@@ -50,14 +50,16 @@ export const DropdownMenu: React.FC<{ children: React.ReactNode }> = ({ children
 };
 
 export const DropdownMenuTrigger = React.forwardRef<HTMLButtonElement, React.ButtonHTMLAttributes<HTMLButtonElement>>(
-  ({ children, ...props }, ref) => {
+  ({ children, className = "", ...props }, ref) => {
     const context = useContext(DropdownMenuContext);
     if (!context) throw new Error("DropdownMenu components must be used within DropdownMenu");
     const { open, setOpen, closeMenu } = context;
+    const classes = `interactive-item rounded-lg flex items-center ${open ? "active" : ""} ${className}`;
     return (
       <button
         ref={ref}
         onClick={() => (open ? closeMenu() : setOpen(true))}
+        className={classes}
         {...props}
       >
         {children}

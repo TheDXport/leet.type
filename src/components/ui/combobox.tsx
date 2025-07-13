@@ -47,17 +47,14 @@ const Combobox: React.FC<ComboboxProps> = ({
   const menuId = React.useId();
 
   return (
-    <div
-      ref={boxRef}
-      className="relative hover:text-[#f6f6f6] transition-colors duration-[350ms]"
-    >
+    <div ref={boxRef} className="relative">
       <button
         type="button"
         role="combobox"
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className="w-96 flex text-center justify-between items-center rounded px-1 py-1 "
+        className={`w-96 flex text-center justify-between items-center rounded px-1 py-1 interactive-item ${open ? "active" : ""}`}
       >
         {value || placeholder}
       </button>

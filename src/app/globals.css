@@ -55,3 +55,35 @@ body {
 .dropdown-close-animation {
   animation: fade-out-up 0.2s ease-in-out forwards;
 }
+
+/* Shared styling for interactive header items */
+.interactive-item {
+  position: relative;
+  transition: color 0.35s, transform 0.35s;
+}
+
+.interactive-item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.35s;
+}
+
+.interactive-item:hover {
+  color: #f6f6f6;
+  transform: translateY(-2px);
+}
+
+.interactive-item:hover::after,
+.interactive-item.active::after {
+  width: 100%;
+}
+
+.interactive-item.active {
+  color: #f6f6f6;
+  transform: translateY(-2px);
+}
