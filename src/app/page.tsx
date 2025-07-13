@@ -20,11 +20,33 @@ const Main: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
 
-  // Fetch markdown content dynamically based on the selected algorithm and language
+  // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
     const fetchAlgorithmContent = async () => {
       try {
-        const filePath = `../../algorithms/${selectedAlgorithm}/${selectedLanguage}.md`;
+        const algorithmSlug = selectedAlgorithm.toLowerCase().replace(/\s+/g, "-");
+        const languageFolder = selectedLanguage.toLowerCase();
+
+        const pascalCase = selectedAlgorithm
+          .split(" ")
+          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
+          .join("");
+        const camelCase = selectedAlgorithm
+          .split(" ")
+          .map((w, i) =>
+            i === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1)
+          )
+          .join("");
+        const snakeCase = selectedAlgorithm.toLowerCase().replace(/\s+/g, "_");
+
+        const fileNames: Record<LanguageName, string> = {
+          Java: `${pascalCase}.java`,
+          Python: `${snakeCase}.py`,
+          Javascript: `${camelCase}.js`,
+          Cpp: `${snakeCase}.cpp`,
+        };
+
+        const filePath = `../../algorithms/${algorithmSlug}/${languageFolder}/${fileNames[selectedLanguage]}`;
         const response = await fetch(filePath);
         const content = await response.text();
         setAlgorithmContent(content);
