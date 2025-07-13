@@ -6,6 +6,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
 } from "@/components/ui/dropdown-menu";
+import Combobox from "@/components/ui/combobox";
+
+type AlgorithmName = "binarysearch";
+
+const algorithms: AlgorithmName[] = ["binarysearch"];
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -14,8 +19,8 @@ const albertSans = Albert_Sans({
 });
 
 interface HeaderProps {
-  onAlgorithmSelect: (algorithm: "binarysearch") => void;
-  selectedAlgorithm: string;
+  onAlgorithmSelect: (algorithm: AlgorithmName) => void;
+  selectedAlgorithm: AlgorithmName;
   onLanguageSelect: (
     language: "java" | "python" | "javascript" | "cpp"
   ) => void;
@@ -37,12 +42,11 @@ const Header: React.FC<HeaderProps> = ({
       <div className="flex items-center space-x-2">
         <span className="font-bold">algtype</span>
         <span className="text-[#0D1012]">/</span>
-        <button
-          className="text-xs md:text-lg flex-col flex px-2 justify-center"
-          onClick={() => onAlgorithmSelect("binarysearch")}
-        >
-          {selectedAlgorithm}
-        </button>
+        <Combobox
+          options={algorithms}
+          value={selectedAlgorithm}
+          onSelect={(val) => onAlgorithmSelect(val as AlgorithmName)}
+        />
         <span className="text-[#0D1012]">/</span>
         <DropdownMenu>
           <DropdownMenuTrigger className="text-xs md:text-lg px-2 md:px-4 rounded-lg hover:text-[#1d1d1d] flex items-center">
