@@ -1,5 +1,5 @@
 import React from "react";
-import { Albert_Sans, REM, Geist } from "next/font/google";
+import { REM, Geist } from "next/font/google";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -12,12 +12,6 @@ import Link from "next/link";
 type AlgorithmName = "Binary Search" | "Valid Perfect Square";
 
 const algorithms: AlgorithmName[] = ["Binary Search", "Valid Perfect Square"];
-
-const albertSans = Albert_Sans({
-  variable: "--font-albert-sans",
-  subsets: ["latin"],
-  weight: ["700"],
-});
 
 const rem = REM({
   variable: "--font-rem",
