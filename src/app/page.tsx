@@ -24,29 +24,17 @@ const Main: React.FC = () => {
   useEffect(() => {
     const fetchAlgorithmContent = async () => {
       try {
-        const algorithmSlug = selectedAlgorithm.toLowerCase().replace(/\s+/g, "-");
-        const languageFolder = selectedLanguage.toLowerCase();
+        const algorithmFolder = selectedAlgorithm.replace(/\s+/g, "");
+        const baseName = selectedAlgorithm.replace(/\s+/g, "").toLowerCase();
 
-        const pascalCase = selectedAlgorithm
-          .split(" ")
-          .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-          .join("");
-        const camelCase = selectedAlgorithm
-          .split(" ")
-          .map((w, i) =>
-            i === 0 ? w.toLowerCase() : w.charAt(0).toUpperCase() + w.slice(1)
-          )
-          .join("");
-        const snakeCase = selectedAlgorithm.toLowerCase().replace(/\s+/g, "_");
-
-        const fileNames: Record<LanguageName, string> = {
-          Java: `${pascalCase}.java`,
-          Python: `${snakeCase}.py`,
-          Javascript: `${camelCase}.js`,
-          Cpp: `${snakeCase}.cpp`,
+        const extensions: Record<LanguageName, string> = {
+          Java: "java",
+          Python: "py",
+          Javascript: "js",
+          Cpp: "cpp",
         };
 
-        const filePath = `../../algorithms/${algorithmSlug}/${languageFolder}/${fileNames[selectedLanguage]}`;
+        const filePath = `../../algorithms/${algorithmFolder}/${baseName}.${extensions[selectedLanguage]}`;
         const response = await fetch(filePath);
         const content = await response.text();
         setAlgorithmContent(content);
