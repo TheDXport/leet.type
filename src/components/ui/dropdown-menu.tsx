@@ -40,7 +40,13 @@ export const DropdownMenuContent: React.FC<{ children: React.ReactNode; classNam
   const { open } = context;
   if (!open) return null;
   return (
-    <div className={`absolute right-0 mt-2 min-w-[8rem] rounded-md bg-white shadow-lg z-10 ${className || ""}`}>{children}</div>
+    <div
+      className={`absolute right-0 mt-2 min-w-[8rem] rounded-md bg-white shadow-lg z-10 dropdown-animation ${
+        className || ""
+      }`}
+    >
+      {children}
+    </div>
   );
 };
 

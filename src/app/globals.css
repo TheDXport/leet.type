@@ -25,3 +25,18 @@ body {
 .typing-line {
   white-space: pre; /* Preserve spaces and indentation */
 }
+
+@keyframes fade-in-down {
+  from {
+    opacity: 0;
+    transform: translateY(-0.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-animation {
+  animation: fade-in-down 0.2s ease-out;
+}

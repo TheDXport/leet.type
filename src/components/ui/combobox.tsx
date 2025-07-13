@@ -48,7 +48,10 @@ const Combobox: React.FC<ComboboxProps> = ({
         </svg>
       </button>
       {open && (
-        <div id={menuId} className="absolute mt-1 w-[200px] bg-white shadow rounded z-10">
+        <div
+          id={menuId}
+          className="absolute mt-1 w-[200px] bg-white shadow rounded z-10 dropdown-animation"
+        >
           <input
             placeholder="Search..."
             className="h-9 w-full border-b px-2 outline-none text-sm"
