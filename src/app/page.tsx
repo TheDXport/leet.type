@@ -5,15 +5,15 @@ import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-type AlgorithmName = "binarysearch"; // Extend this with more algorithms
-type LanguageName = "java" | "python" | "javascript" | "cpp"; // Extend with more languages
+type AlgorithmName = "Binary Search"; // Extend this with more algorithms
+type LanguageName = "Java" | "Python" | "Javascript" | "Cpp"; // Extend with more languages
 
 const Main: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
   const [selectedAlgorithm, setSelectedAlgorithm] =
-    useState<AlgorithmName>("binarysearch");
+    useState<AlgorithmName>("Binary Search");
   const [selectedLanguage, setSelectedLanguage] =
-    useState<LanguageName>("java");
+    useState<LanguageName>("Java");
   const [algorithmContent, setAlgorithmContent] = useState<string>("");
   const [typingComplete, setTypingComplete] = useState(false);
   const [userTypedContent, setUserTypedContent] = useState<string>("");
@@ -52,7 +52,7 @@ const Main: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="bg-black">
       <div className="min-h-screen overflow-x-auto flex flex-col items-center justify-center">
         <div
           className={`transition-opacity duration-500 ${

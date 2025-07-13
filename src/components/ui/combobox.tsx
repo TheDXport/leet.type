@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useState } from "react";
 
@@ -32,25 +32,14 @@ const Combobox: React.FC<ComboboxProps> = ({
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => setOpen(!open)}
-        className="w-[200px] flex justify-between items-center border rounded px-2 py-1 text-xs md:text-lg"
+        className="w-36 flex text-center justify-between items-center rounded px-1 py-1 text-xs md:text-lg"
       >
         {value || placeholder}
-        <svg
-          className="ml-auto opacity-50 w-4 h-4"
-          viewBox="0 0 20 20"
-          fill="currentColor"
-        >
-          <path
-            fillRule="evenodd"
-            d="M5.23 7.21a.75.75 0 011.06.02L10 10.94l3.71-3.71a.75.75 0 111.06 1.06l-4.24 4.24a.75.75 0 01-1.06 0L5.21 8.27a.75.75 0 01.02-1.06z"
-            clipRule="evenodd"
-          />
-        </svg>
       </button>
       {open && (
         <div
           id={menuId}
-          className="absolute mt-1 w-[200px] bg-white shadow rounded z-10 dropdown-animation"
+          className="absolute mt-1 w-36 bg-white shadow rounded-xl z-10 dropdown-animation"
         >
           <input
             placeholder="Search..."
@@ -89,7 +78,9 @@ const Combobox: React.FC<ComboboxProps> = ({
                 </div>
               ))
             ) : (
-              <div className="px-4 py-2 text-sm text-gray-500">No option found.</div>
+              <div className="px-4 py-2 text-sm text-gray-500">
+                No option found.
+              </div>
             )}
           </div>
         </div>

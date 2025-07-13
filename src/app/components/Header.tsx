@@ -8,9 +8,9 @@ import {
 } from "@/components/ui/dropdown-menu";
 import Combobox from "@/components/ui/combobox";
 
-type AlgorithmName = "binarysearch";
+type AlgorithmName = "Binary Search";
 
-const algorithms: AlgorithmName[] = ["binarysearch"];
+const algorithms: AlgorithmName[] = ["Binary Search"];
 
 const albertSans = Albert_Sans({
   variable: "--font-albert-sans",
@@ -22,7 +22,7 @@ interface HeaderProps {
   onAlgorithmSelect: (algorithm: AlgorithmName) => void;
   selectedAlgorithm: AlgorithmName;
   onLanguageSelect: (
-    language: "java" | "python" | "javascript" | "cpp"
+    language: "Java" | "Python" | "Javascript" | "Cpp"
   ) => void;
   selectedLanguage: string;
 }
@@ -33,21 +33,21 @@ const Header: React.FC<HeaderProps> = ({
   onLanguageSelect,
   selectedLanguage,
 }) => {
-  const languages = ["java", "python", "javascript", "cpp"] as const;
+  const languages = ["Java", "Python", "Javascript", "Cpp"] as const;
 
   return (
     <div
       className={`${albertSans.className} w-[45rem] flex justify-center space-x-2 md:space-x-7 px-4 sm:px-7 md:px-14 sm:py-[0.005rem] md:py-1 lg:py-1 bg-[#d8d8d8] text-[#1d1d1d] rounded-2xl shadow my-3`}
     >
       <div className="flex items-center space-x-2">
-        <span className="font-bold">algtype</span>
-        <span className="text-[#0D1012]">/</span>
+        <span className="font-bold">Leet.type</span>
+        <span className="text-[#0D1012]">&gt;</span>
         <Combobox
           options={algorithms}
           value={selectedAlgorithm}
           onSelect={(val) => onAlgorithmSelect(val as AlgorithmName)}
         />
-        <span className="text-[#0D1012]">/</span>
+        <span className="text-[#0D1012]">&gt;</span>
         <DropdownMenu>
           <DropdownMenuTrigger className="text-xs md:text-lg px-2 md:px-4 rounded-lg hover:text-[#1d1d1d] flex items-center">
             {selectedLanguage}

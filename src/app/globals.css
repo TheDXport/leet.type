@@ -38,5 +38,5 @@ body {
 }
 
 .dropdown-animation {
-  animation: fade-in-down 0.2s ease-out;
+  animation: fade-in-down 0.2s ease-in-out;
 }
