@@ -10,10 +10,12 @@ interface ResultsProps {
 
 // Count characters excluding leading indentation spaces on each line
 const countNonIndentChars = (content: string): number => {
-  return content
-    .split("\n")
-    .map((line) => line.replace(/^\s+/, ""))
-    .join("\n").length;
+  return (
+    content
+      .split("\n")
+      .map((line) => line.replace(/^\s+/, ""))
+      .join("\n").length - 1
+  );
 };
 
 const Results: React.FC<ResultsProps> = ({
@@ -65,7 +67,7 @@ const Results: React.FC<ResultsProps> = ({
   const timePerWord = (totalTimeSpent * 10) / wordCount;
 
   return (
-    <div className="results-container flex flex-col items-center">
+    <div className="results-container flex flex-col items-center text-white">
       <h1 className="text-2xl font-bold">Results</h1>
       <div className="text-lg mt-4">
         <p>
@@ -82,7 +84,7 @@ const Results: React.FC<ResultsProps> = ({
           seconds
         </p>
         <p>
-          <strong>WPM:</strong> {wpm.toFixed(0)} words per minute
+          <strong>WPM:</strong> {wpm.toFixed(0)}
         </p>
         <p>
           <strong>Accuracy:</strong> {accuracy.toFixed(0)}%

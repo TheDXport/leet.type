@@ -130,8 +130,8 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                         ? typedChars[index] === "correct"
                           ? "text-white"
                           : char === " "
-                            ? "bg-red-500"
-                            : "text-red-500"
+                          ? "bg-red-500"
+                          : "text-red-500"
                         : "text-gray-500"
                     } ${
                       isCursor && cursorVisible ? "bg-gray-600 text-black" : ""
