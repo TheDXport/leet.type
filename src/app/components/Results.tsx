@@ -8,6 +8,14 @@ interface ResultsProps {
   totalTimeSpent: number; // Total time spent typing (in seconds)
 }
 
+// Count characters excluding leading indentation spaces on each line
+const countNonIndentChars = (content: string): number => {
+  return content
+    .split("\n")
+    .map((line) => line.replace(/^\s+/, ""))
+    .join("\n").length;
+};
+
 const Results: React.FC<ResultsProps> = ({
   algorithmName,
   programmingLanguage,
@@ -18,6 +26,9 @@ const Results: React.FC<ResultsProps> = ({
   // Split content into words for WPM calculation
   const originalWords = originalContent.split(/\s+/);
   const wordCount = originalWords.length;
+
+  // Count all characters except indentation spaces
+  const totalChars = countNonIndentChars(originalContent);
 
   // Calculate WPM
   const wpm = wordCount / ((totalTimeSpent * 10) / 60);
@@ -59,6 +70,9 @@ const Results: React.FC<ResultsProps> = ({
       <div className="text-lg mt-4">
         <p>
           <strong>Algorithm Name:</strong> {algorithmName}
+        </p>
+        <p>
+          <strong>Total Characters:</strong> {totalChars}
         </p>
         <p>
           <strong>Programming Language:</strong> {programmingLanguage}
