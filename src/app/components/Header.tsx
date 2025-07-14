@@ -56,13 +56,13 @@ const Header: React.FC<HeaderProps> = ({
           leet.typer
         </span>
 
-        <span className="">\</span>
+        <span className="text-[#6b6b6b]">\</span>
         <div className="interactive-item">
           <Link href="https://leetcode.com" className="">
             Leetcode.com
           </Link>
         </div>
-        <span className="">\</span>
+        <span className="text-[#6b6b6b]">\</span>
         <div>
           <DropdownMenu>
             <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center">
@@ -99,7 +99,7 @@ const Header: React.FC<HeaderProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <span className="">\</span>
+        <span className="text-[#6b6b6b]">\</span>
         <div className="">
           <Combobox
             options={algorithms}
