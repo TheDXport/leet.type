@@ -54,7 +54,7 @@ const Combobox: React.FC<ComboboxProps> = ({
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className={`w-auto flex text-center justify-between items-center px-1 py-1 interactive-item ${
+        className={`w-auto flex text-center justify-between items-center px-1 py-1 sm:text-lg md:text-xl interactive-item ${
           open ? "active" : ""
         }`}
       >

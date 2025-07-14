@@ -64,14 +64,14 @@ const Results: React.FC<ResultsProps> = ({
   const timePerWord = totalTimeSpent / wordCount;
 
   return (
-    <div className="flex flex-col items-center justify-center space-y-12 mr-72">
+    <div className="flex flex-col items-center justify-center space-y-12 md:mr-72 mx-auto p-4">
       <div
-        className={`${geist.className} text-[#ffffff] text-5xl font-bold flex items-center relative underline underline-offset-8 `}
+        className={`${geist.className} text-[#ffffff] text-3xl sm:text-5xl font-bold flex items-center relative underline underline-offset-8 `}
       >
         Results
       </div>
       <div
-        className={`${azeretMono.className} font-medium text-3xl flex flex-col items-center text-white space-y-10 relative right-10 `}
+        className={`${azeretMono.className} font-medium text-xl sm:text-3xl flex flex-col items-center text-white space-y-10 relative md:right-10`}
       >
         <div className=" justify-center ">
           <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
@@ -84,8 +84,8 @@ const Results: React.FC<ResultsProps> = ({
           </div>
         </div>
 
-        <div className="flex justify-center gap-x-24 mr-auto items-start">
-          <div className="w-56">
+        <div className="flex justify-center gap-x-12 sm:gap-x-24 mr-auto items-start flex-wrap">
+          <div className="w-40 sm:w-56">
             <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
               <h2>speed</h2>
             </div>
@@ -96,7 +96,7 @@ const Results: React.FC<ResultsProps> = ({
             </div>
           </div>
 
-          <div className="w-56">
+          <div className="w-40 sm:w-56">
             <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
               <h2>time/word</h2>
             </div>
@@ -111,15 +111,15 @@ const Results: React.FC<ResultsProps> = ({
           </div>
         </div>
 
-        <div className="flex justify-center gap-x-24  mr-auto">
-          <div className="w-56">
+        <div className="flex justify-center gap-x-12 sm:gap-x-24 mr-auto flex-wrap">
+          <div className="w-40 sm:w-56">
             <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
               <h2>accuracy</h2>
             </div>
             <div className="text-6xl text-white">{accuracy.toFixed(0)}%</div>
           </div>
 
-          <div className="w-56">
+          <div className="w-40 sm:w-56">
             <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
               <h2>Σ time</h2>
             </div>

@@ -53,25 +53,25 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div
-      className={`${geist.className} font-medium text-xl flex text-[#b9b9b9] mb-4`}
+      className={`${geist.className} font-medium text-lg sm:text-xl flex text-[#b9b9b9] mb-4`}
     >
-      <div className="flex items-center space-x-5 justfiy-center">
+      <div className="flex flex-wrap items-center justify-center md:justify-start sm:space-x-2 md:space-x-2 lg:space-x-6 gap-y-2 w-full">
         <span
-          className={`${rem.className} text-[rgb(213,213,213)] font-bold text-4xl pb-2`}
+          className={`${rem.className} text-[rgb(213,213,213)] font-bold sm:text-2xl md:text-2xl lg:text-4xl pb-2`}
         >
           leet.typer
         </span>
 
-        <span className="">\</span>
-        <div className="interactive-item">
+        <span className="hidden sm:inline">\</span>
+        <div className="interactive-item sm:text-lg md:text-xl">
           <Link href="https://leetcode.com" className="">
             Leetcode.com
           </Link>
         </div>
-        <span className="">\</span>
+        <span className="hidden sm:inline">\</span>
         <div>
           <DropdownMenu>
-            <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center">
+            <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center sm:text-lg md:text-xl">
               {selectedLanguage}
             </DropdownMenuTrigger>
             <DropdownMenuContent className="bg-black text-[#f6f6f6]">
@@ -105,7 +105,7 @@ const Header: React.FC<HeaderProps> = ({
             </DropdownMenuContent>
           </DropdownMenu>
         </div>
-        <span className="">\</span>
+        <span className="hidden sm:inline">\</span>
         <div className="">
           <Combobox
             options={algorithms}

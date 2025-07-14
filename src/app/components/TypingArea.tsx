@@ -138,7 +138,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="w-full overflow-hidden outline-none flex flex-col "
+      className="w-full overflow-hidden outline-none flex flex-col ml-10 sm:ml-3 "
     >
       <div className={`space-y-4 ${lineTransition ? "slide-up" : ""}`}>
         {(() => {
