@@ -20,6 +20,7 @@ const Main: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
   const [tabPressed, setTabPressed] = useState<boolean>(false);
+  const [restartCounter, setRestartCounter] = useState(0);
 
   // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -70,6 +71,7 @@ const Main: React.FC = () => {
     setStartTime(null);
     setTimeElapsed(0);
     setTotalErrors(0);
+    setRestartCounter((prev) => prev + 1);
   };
 
   useEffect(() => {
@@ -133,6 +135,7 @@ const Main: React.FC = () => {
           ) : (
             <div className="w-auto">
               <TypingArea
+                key={restartCounter}
                 lines={algorithmContent.split("\n")} // Split the markdown content into lines
                 onTypingStart={handleTypingStart} // Pass the callback to TypingArea
                 onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
