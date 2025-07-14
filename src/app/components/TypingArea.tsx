@@ -16,6 +16,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [charIndex, setCharIndex] = useState(0);
   const [cursorVisible, setCursorVisible] = useState(true);
   const [errorCount, setErrorCount] = useState(0);
+  const [lineTransition, setLineTransition] = useState(false);
   const typingContainerRef = useRef<HTMLDivElement>(null);
 
   const totalChars =
@@ -35,6 +36,14 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   useEffect(() => {
     typingContainerRef.current?.focus();
   }, [lines]);
+
+  useEffect(() => {
+    if (currentLineIndex > 0) {
+      setLineTransition(true);
+      const timeout = setTimeout(() => setLineTransition(false), 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [currentLineIndex]);
 
   const handleTyping = (e: React.KeyboardEvent<HTMLDivElement>) => {
     onTypingStart();
@@ -119,7 +128,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       onKeyDown={handleTyping}
       className="w-full overflow-hidden outline-none flex flex-col "
     >
-      <div className="space-y-4">
+      <div className={`space-y-4 ${lineTransition ? "slide-up" : ""}`}>
         {lines
           .slice(currentLineIndex, currentLineIndex + 6)
           .map((line, lineIndex) => (

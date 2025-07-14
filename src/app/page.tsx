@@ -19,6 +19,15 @@ const Main: React.FC = () => {
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
+  const [tabPressed, setTabPressed] = useState<boolean>(false);
+  const [restartCounter, setRestartCounter] = useState(0);
+  const [typingAreaVisible, setTypingAreaVisible] = useState(false);
+  const [resultsVisible, setResultsVisible] = useState(true);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setTypingAreaVisible(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -63,8 +72,57 @@ const Main: React.FC = () => {
     setTypingComplete(true);
   };
 
+  const handleRestart = () => {
+    if (typingComplete) {
+      setResultsVisible(false);
+    } else {
+      setTypingAreaVisible(false);
+    }
+
+    setTimeout(() => {
+      setIsTypingStarted(false);
+      setTypingComplete(false);
+      setStartTime(null);
+      setTimeElapsed(0);
+      setTotalErrors(0);
+      setRestartCounter((prev) => prev + 1);
+      setTypingAreaVisible(true);
+      setResultsVisible(true);
+    }, 500);
+  };
+
+  useEffect(() => {
+    const downHandler = (e: KeyboardEvent) => {
+      if ((isTypingStarted || typingComplete) && e.key === "Tab") {
+        e.preventDefault();
+        setTabPressed(true);
+      }
+      if ((isTypingStarted || typingComplete) && e.key === "Enter" && tabPressed) {
+        e.preventDefault();
+        handleRestart();
+      }
+    };
+
+    const upHandler = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        setTabPressed(false);
+      }
+    };
+
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+      window.removeEventListener("keyup", upHandler);
+    };
+  }, [tabPressed, isTypingStarted, typingComplete]);
+
   return (
-    <div className="bg-black relative">
+    <div
+      className={`bg-black relative ${
+        isTypingStarted || typingComplete ? "unselectable" : ""
+      }`}
+    >
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
         <div className="w-auto">
           <div
@@ -84,16 +142,27 @@ const Main: React.FC = () => {
             />
           </div>
           {typingComplete ? (
-            <FadeSwitch
-              algorithmName={selectedAlgorithm}
-              programmingLanguage={selectedLanguage}
-              originalContent={algorithmContent}
-              totalTimeSpent={timeElapsed}
-              totalErrors={totalErrors}
-            />
+            <div
+              className={`transition-opacity duration-500 ${
+                resultsVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
+              <FadeSwitch
+                algorithmName={selectedAlgorithm}
+                programmingLanguage={selectedLanguage}
+                originalContent={algorithmContent}
+                totalTimeSpent={timeElapsed}
+                totalErrors={totalErrors}
+              />
+            </div>
           ) : (
-            <div className="w-auto">
+            <div
+              className={`w-auto transition-opacity duration-500 ${
+                typingAreaVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
               <TypingArea
+                key={restartCounter}
                 lines={algorithmContent.split("\n")} // Split the markdown content into lines
                 onTypingStart={handleTypingStart} // Pass the callback to TypingArea
                 onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
