@@ -20,6 +20,9 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   const [cursorVisible, setCursorVisible] = useState(true);
   const [errorCount, setErrorCount] = useState(0);
   const [lineTransition, setLineTransition] = useState(false);
+  // Track if we've already transitioned off the first line so the first
+  // transition does not trigger the slide animation
+  const [hasLeftFirstLine, setHasLeftFirstLine] = useState(false);
   const typingContainerRef = useRef<HTMLDivElement>(null);
 
   const totalChars =
@@ -42,11 +45,14 @@ const TypingArea: React.FC<TypingAreaProps> = ({
 
   useEffect(() => {
     if (currentLineIndex > 0) {
-      setLineTransition(true);
-      const timeout = setTimeout(() => setLineTransition(false), 300);
-      return () => clearTimeout(timeout);
+      if (hasLeftFirstLine) {
+        setLineTransition(true);
+        const timeout = setTimeout(() => setLineTransition(false), 300);
+        return () => clearTimeout(timeout);
+      }
+      setHasLeftFirstLine(true);
     }
-  }, [currentLineIndex]);
+  }, [currentLineIndex, hasLeftFirstLine]);
 
   const handleTyping = (e: React.KeyboardEvent<HTMLDivElement>) => {
     onTypingStart();
