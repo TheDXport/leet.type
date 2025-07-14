@@ -57,13 +57,15 @@ const FadeSwitch: React.FC<FadeSwitchProps> = ({
         } transition-opacity duration-200`}
       >
         {showComponentB ? (
-          <Results
-            algorithmName={algorithmName}
-            programmingLanguage={programmingLanguage}
-            originalContent={originalContent}
-            totalTimeSpent={totalTimeSpent}
-            totalErrors={totalErrors}
-          />
+          <div className="">
+            <Results
+              algorithmName={algorithmName}
+              programmingLanguage={programmingLanguage}
+              originalContent={originalContent}
+              totalTimeSpent={totalTimeSpent}
+              totalErrors={totalErrors}
+            />
+          </div>
         ) : null}
       </div>
     </div>

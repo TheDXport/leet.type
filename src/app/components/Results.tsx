@@ -1,4 +1,17 @@
 import React from "react";
+import { IBM_Plex_Mono, Azeret_Mono } from "next/font/google";
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  variable: "--font-ibm-plex-mono",
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+});
+
+const azeretMono = Azeret_Mono({
+  subsets: ["latin"],
+  variable: "--font-azeret-mono",
+  weight: ["400", "500", "600", "700"],
+});
 
 interface ResultsProps {
   algorithmName: string;
@@ -43,39 +56,91 @@ const Results: React.FC<ResultsProps> = ({
   // Calculate Time Per Word
   const timePerWord = totalTimeSpent / wordCount;
 
+  // Bank
+  //
+  //
+  //
+  //
+  //
+  //
+  // {timePerWord.toFixed(2)}
+  // {errorCount}
+
   return (
-    <div className="results-container flex flex-col items-center text-white">
-      <h1 className="text-2xl font-bold">Results</h1>
-      <div className="text-lg mt-4">
-        <p>
-          <strong>Algorithm Name:</strong> {algorithmName}
-        </p>
-        <p>
-          <strong>Total Characters:</strong> {totalChars}
-        </p>
-        <p>
-          <strong>Programming Language:</strong> {programmingLanguage}
-        </p>
-        <p>
-          <strong>Total Time Spent:</strong> {totalTimeSpent.toFixed(2)}{" "}
-          seconds
-        </p>
-        <p>
-          <strong>WPM:</strong> {wpm.toFixed(0)}
-        </p>
-        <p>
-          <strong>Accuracy:</strong> {accuracy.toFixed(0)}%
-        </p>
-        <p>
-          <strong>Time Per Word:</strong> {timePerWord.toFixed(2)} seconds
-        </p>
-        <p>
-          <strong>Total Errors:</strong> {errorCount}
-        </p>
+    <div className="flex flex-col items-center justify-center">
+      <div
+        className={`${azeretMono.className} font-medium text-3xl flex flex-col items-center text-white space-y-10 relative right-10 bottom-14`}
+      >
+        <div className=" justify-center ">
+          <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+            <h2 className="">problem \ language</h2>
+          </div>
+          <div>
+            <h1 className="text-6xl text-white">
+              {algorithmName} \ {programmingLanguage}{" "}
+            </h1>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-x-24 mr-auto items-start">
+          <div className="w-56">
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>speed</h2>
+            </div>
+            <div>
+              <h1 className="text-6xl text-white">
+                {((wpm * accuracy) / 100).toFixed(0)}wpm
+              </h1>
+            </div>
+          </div>
+
+          <div className="w-56">
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>time/word</h2>
+            </div>
+            <div className="text-6xl text-white">
+              {totalTimeSpent.toFixed(1)}s
+            </div>
+          </div>
+
+          <div>
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>characters</h2>
+            </div>
+            <div className="text-6xl text-white">{totalChars}</div>
+          </div>
+        </div>
+
+        <div className="flex justify-center gap-x-24  mr-auto">
+          <div className="w-56">
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>accuracy</h2>
+            </div>
+            <div className="text-6xl text-white">{accuracy.toFixed(0)}%</div>
+          </div>
+
+          <div className="w-56">
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>Σ time</h2>
+            </div>
+            <div className="text-6xl text-white">
+              {totalTimeSpent.toFixed(1)}s
+            </div>
+          </div>
+
+          <div>
+            <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
+              <h2>errors made</h2>
+            </div>
+            <div className="text-6xl text-white">{errorCount}</div>
+          </div>
+        </div>
       </div>
-      <pre className="mt-4 w-full overflow-auto bg-gray-800 p-4 rounded">
-        <code className="whitespace-pre text-left text-sm">{originalContent}</code>
-      </pre>
+      <div
+        className={`${ibmPlexMono.className} text-[#646464] font-medium top-14 relative`}
+      >
+        <span className="italic">ctrl/cmd + tab </span> {"  "} to restart
+      </div>
     </div>
   );
 };

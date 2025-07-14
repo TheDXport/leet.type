@@ -65,8 +65,8 @@ const Main: React.FC = () => {
 
   return (
     <div className="bg-black relative">
-      <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center mr-52 ">
-        <div className="w-full max-w-4xl">
+      <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
+        <div className="w-auto">
           <div
             className={`transition-opacity duration-500 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
