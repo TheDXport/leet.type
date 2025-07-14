@@ -57,7 +57,7 @@ const Header: React.FC<HeaderProps> = ({
         </span>
 
         <span className="">\</span>
-        <div className="interactive-item">
+        <div className="interactive-item ">
           <Link href="https://leetcode.com" className="">
             Leetcode.com
           </Link>

@@ -90,7 +90,11 @@ const Main: React.FC = () => {
         e.preventDefault();
         setTabPressed(true);
       }
-      if ((isTypingStarted || typingComplete) && e.key === "Enter" && tabPressed) {
+      if (
+        (isTypingStarted || typingComplete) &&
+        e.key === "Enter" &&
+        tabPressed
+      ) {
         e.preventDefault();
         handleRestart();
       }
@@ -119,7 +123,7 @@ const Main: React.FC = () => {
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
         <div className="w-auto">
           <div
-            className={`transition-opacity duration-500 ${
+            className={`transition-opacity duration-200 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
             }`}
           >
@@ -144,7 +148,7 @@ const Main: React.FC = () => {
             />
           ) : (
             <div
-              className={`w-auto transition-opacity duration-500 ${
+              className={`w-auto transition-opacity duration-200 ${
                 typingAreaVisible ? "opacity-100" : "opacity-0"
               }`}
             >
