@@ -102,7 +102,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
     // Handle space and Enter for line transition
     if (
       (keystroke === " " || keystroke === "Enter") &&
-      charIndex >= currentLine.length
+      charIndex >= currentLine.length - 1
     ) {
       const nextLine = lines[currentLineIndex + 1];
       if (nextLine) {
