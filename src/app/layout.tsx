@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { FaDesktop } from "react-icons/fa";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -24,10 +25,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+        {/* Show notice for screens below the `sm` breakpoint */}
+        <div className="sm:hidden flex flex-col items-center justify-center min-h-screen bg-black text-white text-center space-y-4">
+          <FaDesktop size={64} />
+          <p>Please use a desktop view to access</p>
+        </div>
+        {/* Render the app for screens `sm` and above */}
+        <div className="hidden sm:block">{children}</div>
       </body>
     </html>
   );
