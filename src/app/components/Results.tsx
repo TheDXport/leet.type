@@ -1,5 +1,12 @@
 import React from "react";
-import { IBM_Plex_Mono, Azeret_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Azeret_Mono, Geist } from "next/font/google";
+
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+});
+
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   variable: "--font-ibm-plex-mono",
@@ -57,9 +64,14 @@ const Results: React.FC<ResultsProps> = ({
   const timePerWord = totalTimeSpent / wordCount;
 
   return (
-    <div className="flex flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center space-y-12 mr-72">
       <div
-        className={`${azeretMono.className} font-medium text-3xl flex flex-col items-center text-white space-y-10 relative right-10 bottom-14`}
+        className={`${geist.className} text-[#ffffff] text-5xl font-bold flex items-center relative underline underline-offset-8 `}
+      >
+        Results
+      </div>
+      <div
+        className={`${azeretMono.className} font-medium text-3xl flex flex-col items-center text-white space-y-10 relative right-10 `}
       >
         <div className=" justify-center ">
           <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>

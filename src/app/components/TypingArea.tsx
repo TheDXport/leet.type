@@ -134,7 +134,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
           .map((line, lineIndex) => (
             <div
               key={lineIndex}
-              className={`transition-all duration-500 text-xl sm:text-xl md:text-2xl font-mono text-gray-300`}
+              className={`transition-all duration-500 text-xl sm:text-xl md:text-3xl font-mono text-gray-300`}
             >
               {line.split("").map((char, index) => {
                 const isCursor = lineIndex === 0 && index === charIndex;
@@ -151,7 +151,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                           : "text-red-500"
                         : "text-gray-500"
                     } ${
-                      isCursor && cursorVisible ? "bg-gray-600 text-black" : ""
+                      isCursor && cursorVisible ? "bg-[#3c3c3c] text-black" : ""
                     }`}
                   >
                     {char === " " ? "\u00A0" : char}

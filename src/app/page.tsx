@@ -140,7 +140,7 @@ const Main: React.FC = () => {
       }`}
     >
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
-        <div className="w-auto">
+        <div className="w-[85%] ml-64 justify-center flex flex-col">
           <div
             className={`transition-opacity duration-500 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
