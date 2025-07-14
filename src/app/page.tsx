@@ -21,6 +21,12 @@ const Main: React.FC = () => {
   const [totalErrors, setTotalErrors] = useState<number>(0);
   const [tabPressed, setTabPressed] = useState<boolean>(false);
   const [restartCounter, setRestartCounter] = useState(0);
+  const [typingAreaVisible, setTypingAreaVisible] = useState(false);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => setTypingAreaVisible(true), 10);
+    return () => clearTimeout(timeout);
+  }, []);
 
   // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -66,12 +72,16 @@ const Main: React.FC = () => {
   };
 
   const handleRestart = () => {
-    setIsTypingStarted(false);
-    setTypingComplete(false);
-    setStartTime(null);
-    setTimeElapsed(0);
-    setTotalErrors(0);
-    setRestartCounter((prev) => prev + 1);
+    setTypingAreaVisible(false);
+    setTimeout(() => {
+      setIsTypingStarted(false);
+      setTypingComplete(false);
+      setStartTime(null);
+      setTimeElapsed(0);
+      setTotalErrors(0);
+      setRestartCounter((prev) => prev + 1);
+      setTypingAreaVisible(true);
+    }, 500);
   };
 
   useEffect(() => {
@@ -133,7 +143,11 @@ const Main: React.FC = () => {
               totalErrors={totalErrors}
             />
           ) : (
-            <div className="w-auto">
+            <div
+              className={`w-auto transition-opacity duration-500 ${
+                typingAreaVisible ? "opacity-100" : "opacity-0"
+              }`}
+            >
               <TypingArea
                 key={restartCounter}
                 lines={algorithmContent.split("\n")} // Split the markdown content into lines
