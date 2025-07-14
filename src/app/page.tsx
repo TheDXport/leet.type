@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 
 import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
@@ -19,6 +19,16 @@ const Main: React.FC = () => {
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
+  const tabPressed = useRef(false);
+
+  // Reset the typing session back to the landing page
+  const resetSession = () => {
+    setIsTypingStarted(false);
+    setTypingComplete(false);
+    setStartTime(null);
+    setTimeElapsed(0);
+    setTotalErrors(0);
+  };
 
   // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -46,6 +56,30 @@ const Main: React.FC = () => {
 
     fetchAlgorithmContent();
   }, [selectedAlgorithm, selectedLanguage]);
+
+  // Listen for TAB + Enter key combination to reset the session
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        tabPressed.current = true;
+        e.preventDefault();
+      } else if (e.key === "Enter" && tabPressed.current) {
+        e.preventDefault();
+        resetSession();
+      }
+    };
+
+    const handleKeyUp = (e: KeyboardEvent) => {
+      if (e.key === "Tab") tabPressed.current = false;
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
+    };
+  }, []);
 
   const handleTypingStart = () => {
     if (!isTypingStarted) {
