@@ -10,6 +10,7 @@ type LanguageName = "Java" | "Python" | "Javascript" | "Cpp"; // Extend with mor
 
 const Main: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
+  const [showHeader, setShowHeader] = useState(true);
   const [selectedAlgorithm, setSelectedAlgorithm] =
     useState<AlgorithmName>("704. Binary Search");
   const [selectedLanguage, setSelectedLanguage] =
@@ -20,6 +21,19 @@ const Main: React.FC = () => {
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
   const tabPressed = useRef(false);
+
+  // Hide the header once typing starts to prevent tab focus
+  useEffect(() => {
+    let timer: NodeJS.Timeout | undefined;
+    if (isTypingStarted) {
+      timer = setTimeout(() => setShowHeader(false), 500);
+    } else {
+      setShowHeader(true);
+    }
+    return () => {
+      if (timer) clearTimeout(timer);
+    };
+  }, [isTypingStarted]);
 
   // Reset the typing session back to the landing page
   const resetSession = () => {
@@ -101,22 +115,24 @@ const Main: React.FC = () => {
     <div className="bg-black relative">
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
         <div className="w-auto">
-          <div
-            className={`transition-opacity duration-500 ${
-              isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
-            }`}
-          >
-            <Header
-              onAlgorithmSelect={(algorithm: AlgorithmName) =>
-                setSelectedAlgorithm(algorithm)
-              }
-              selectedAlgorithm={selectedAlgorithm}
-              onLanguageSelect={(language: LanguageName) =>
-                setSelectedLanguage(language)
-              }
-              selectedLanguage={selectedLanguage}
-            />
-          </div>
+          {showHeader && (
+            <div
+              className={`transition-opacity duration-500 ${
+                isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
+              }`}
+            >
+              <Header
+                onAlgorithmSelect={(algorithm: AlgorithmName) =>
+                  setSelectedAlgorithm(algorithm)
+                }
+                selectedAlgorithm={selectedAlgorithm}
+                onLanguageSelect={(language: LanguageName) =>
+                  setSelectedLanguage(language)
+                }
+                selectedLanguage={selectedLanguage}
+              />
+            </div>
+          )}
           {typingComplete ? (
             <FadeSwitch
               algorithmName={selectedAlgorithm}
