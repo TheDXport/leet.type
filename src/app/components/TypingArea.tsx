@@ -44,7 +44,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
   }, [lines]);
 
   useEffect(() => {
-    if (currentLineIndex > 0) {
+    if (currentLineIndex > 1) {
       if (hasLeftFirstLine) {
         setLineTransition(true);
         const timeout = setTimeout(() => setLineTransition(false), 300);
@@ -174,7 +174,9 @@ const TypingArea: React.FC<TypingAreaProps> = ({
                               : "text-red-500"
                             : "text-gray-500"
                         } ${
-                          isCursor && cursorVisible ? "bg-[#3c3c3c] text-black" : ""
+                          isCursor && cursorVisible
+                            ? "bg-[#3c3c3c] text-black"
+                            : ""
                         }`}
                       >
                         {char === " " ? "\u00A0" : char}
