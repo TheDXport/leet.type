@@ -22,7 +22,6 @@ const Main: React.FC = () => {
   const [tabPressed, setTabPressed] = useState<boolean>(false);
   const [restartCounter, setRestartCounter] = useState(0);
   const [typingAreaVisible, setTypingAreaVisible] = useState(false);
-  const [resultsVisible, setResultsVisible] = useState(true);
 
   useEffect(() => {
     const timeout = setTimeout(() => setTypingAreaVisible(true), 10);
@@ -73,12 +72,7 @@ const Main: React.FC = () => {
   };
 
   const handleRestart = () => {
-    if (typingComplete) {
-      setResultsVisible(false);
-    } else {
-      setTypingAreaVisible(false);
-    }
-
+    setTypingAreaVisible(false);
     setTimeout(() => {
       setIsTypingStarted(false);
       setTypingComplete(false);
@@ -87,7 +81,6 @@ const Main: React.FC = () => {
       setTotalErrors(0);
       setRestartCounter((prev) => prev + 1);
       setTypingAreaVisible(true);
-      setResultsVisible(true);
     }, 500);
   };
 
@@ -142,19 +135,13 @@ const Main: React.FC = () => {
             />
           </div>
           {typingComplete ? (
-            <div
-              className={`transition-opacity duration-500 ${
-                resultsVisible ? "opacity-100" : "opacity-0"
-              }`}
-            >
-              <FadeSwitch
-                algorithmName={selectedAlgorithm}
-                programmingLanguage={selectedLanguage}
-                originalContent={algorithmContent}
-                totalTimeSpent={timeElapsed}
-                totalErrors={totalErrors}
-              />
-            </div>
+            <FadeSwitch
+              algorithmName={selectedAlgorithm}
+              programmingLanguage={selectedLanguage}
+              originalContent={algorithmContent}
+              totalTimeSpent={timeElapsed}
+              totalErrors={totalErrors}
+            />
           ) : (
             <div
               className={`w-auto transition-opacity duration-500 ${
