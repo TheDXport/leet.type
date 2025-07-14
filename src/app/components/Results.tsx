@@ -127,7 +127,7 @@ const Results: React.FC<ResultsProps> = ({
       <div
         className={`${ibmPlexMono.className} text-[#646464] font-medium top-14 relative`}
       >
-        <span className="italic">ctrl/cmd + tab </span> {"  "} to restart
+        <span className="italic">tab + enter</span> to restart
       </div>
     </div>
   );
