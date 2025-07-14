@@ -1,5 +1,7 @@
 Leet.Typer
 
+Leetcode
+
 Requirements
 npm i 
 npm i react
