@@ -53,11 +53,11 @@ const Header: React.FC<HeaderProps> = ({
 
   return (
     <div
-      className={`${geist.className} font-medium text-lg sm:text-xl flex text-[#b9b9b9] mb-4`}
+      className={`${geist.className} font-medium text-lg sm:text-xl flex text-[#b9b9b9] mb-4 bg-red-500`}
     >
-      <div className="flex flex-wrap items-center justify-center md:justify-start space-x-5 gap-y-2 w-full">
+      <div className="flex flex-wrap items-center justify-center md:justify-start space-x-2 md:space-x-5 gap-y-2 w-full">
         <span
-          className={`${rem.className} text-[rgb(213,213,213)] font-bold text-3xl sm:text-4xl pb-2`}
+          className={`${rem.className} text-[rgb(213,213,213)] font-bold text-xl sm:text-2xl pb-2`}
         >
           leet.typer
         </span>
