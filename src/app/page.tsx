@@ -19,6 +19,7 @@ const Main: React.FC = () => {
   const [timeElapsed, setTimeElapsed] = useState<number>(0);
   const [startTime, setStartTime] = useState<number | null>(null);
   const [totalErrors, setTotalErrors] = useState<number>(0);
+  const [tabPressed, setTabPressed] = useState<boolean>(false);
 
   // Fetch source code dynamically based on the selected algorithm and language
   useEffect(() => {
@@ -62,6 +63,39 @@ const Main: React.FC = () => {
     }
     setTypingComplete(true);
   };
+
+  const handleRestart = () => {
+    setIsTypingStarted(false);
+    setTypingComplete(false);
+    setStartTime(null);
+    setTimeElapsed(0);
+    setTotalErrors(0);
+  };
+
+  useEffect(() => {
+    const downHandler = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        setTabPressed(true);
+      }
+      if (e.key === "Enter" && tabPressed) {
+        e.preventDefault();
+        handleRestart();
+      }
+    };
+
+    const upHandler = (e: KeyboardEvent) => {
+      if (e.key === "Tab") {
+        setTabPressed(false);
+      }
+    };
+
+    window.addEventListener("keydown", downHandler);
+    window.addEventListener("keyup", upHandler);
+    return () => {
+      window.removeEventListener("keydown", downHandler);
+      window.removeEventListener("keyup", upHandler);
+    };
+  }, [tabPressed]);
 
   return (
     <div className="bg-black relative">
