@@ -47,14 +47,14 @@ const Combobox: React.FC<ComboboxProps> = ({
   const menuId = React.useId();
 
   return (
-    <div ref={boxRef} className="relative">
+    <div ref={boxRef} className="relative w-72">
       <button
         type="button"
         role="combobox"
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className={`w-auto flex text-center justify-between items-center px-1 py-1 interactive-item ${
+        className={`w-auto flex text-start justify-center items-center px-1 py-1 interactive-item ${
           open ? "active" : ""
         }`}
       >

@@ -5,12 +5,16 @@ import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-type AlgorithmName = "704. Binary Search" | "367. Valid Perfect Square";
+type AlgorithmName =
+  | "704. Binary Search"
+  | "367. Valid Perfect Square"
+  | "1. Two Sum";
 type LanguageName = "Java" | "Python" | "Javascript" | "Cpp";
 
 const algorithms: AlgorithmName[] = [
   "704. Binary Search",
   "367. Valid Perfect Square",
+  "1. Two Sum",
 ];
 
 algorithms.sort((a, b) => {

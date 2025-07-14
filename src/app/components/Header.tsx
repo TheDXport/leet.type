@@ -9,11 +9,15 @@ import {
 import Combobox from "@/components/ui/combobox";
 import Link from "next/link";
 
-type AlgorithmName = "704. Binary Search" | "367. Valid Perfect Square";
+type AlgorithmName =
+  | "704. Binary Search"
+  | "367. Valid Perfect Square"
+  | "1. Two Sum";
 
 const algorithms: AlgorithmName[] = [
   "704. Binary Search",
   "367. Valid Perfect Square",
+  "1. Two Sum",
 ];
 
 algorithms.sort((a, b) => {
