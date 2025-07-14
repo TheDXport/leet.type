@@ -74,10 +74,11 @@ const Main: React.FC = () => {
 
   useEffect(() => {
     const downHandler = (e: KeyboardEvent) => {
-      if (e.key === "Tab") {
+      if ((isTypingStarted || typingComplete) && e.key === "Tab") {
+        e.preventDefault();
         setTabPressed(true);
       }
-      if (e.key === "Enter" && tabPressed) {
+      if ((isTypingStarted || typingComplete) && e.key === "Enter" && tabPressed) {
         e.preventDefault();
         handleRestart();
       }
@@ -95,10 +96,14 @@ const Main: React.FC = () => {
       window.removeEventListener("keydown", downHandler);
       window.removeEventListener("keyup", upHandler);
     };
-  }, [tabPressed]);
+  }, [tabPressed, isTypingStarted, typingComplete]);
 
   return (
-    <div className="bg-black relative">
+    <div
+      className={`bg-black relative ${
+        isTypingStarted || typingComplete ? "unselectable" : ""
+      }`}
+    >
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative  ">
         <div className="w-auto">
           <div
