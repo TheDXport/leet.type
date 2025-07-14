@@ -56,16 +56,6 @@ const Results: React.FC<ResultsProps> = ({
   // Calculate Time Per Word
   const timePerWord = totalTimeSpent / wordCount;
 
-  // Bank
-  //
-  //
-  //
-  //
-  //
-  //
-  // {timePerWord.toFixed(2)}
-  // {errorCount}
-
   return (
     <div className="flex flex-col items-center justify-center">
       <div
@@ -98,9 +88,7 @@ const Results: React.FC<ResultsProps> = ({
             <div className={`${ibmPlexMono.className}  text-[#646475] italic`}>
               <h2>time/word</h2>
             </div>
-            <div className="text-6xl text-white">
-              {totalTimeSpent.toFixed(1)}s
-            </div>
+            <div className="text-6xl text-white">{timePerWord.toFixed(1)}s</div>
           </div>
 
           <div>
