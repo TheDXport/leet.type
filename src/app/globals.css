@@ -97,3 +97,16 @@ body {
 .unselectable * {
   pointer-events: none;
 }
+
+@keyframes slide-up {
+  from {
+    transform: translateY(1.5rem);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+.slide-up {
+  animation: slide-up 0.3s ease;
+}
