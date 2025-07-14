@@ -5,13 +5,25 @@ import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
 
-type AlgorithmName = "704. Binary Search" | "Valid Perfect Square"; // Extend this with more algorithms
-type LanguageName = "Java" | "Python" | "Javascript" | "Cpp"; // Extend with more languages
+type AlgorithmName = "704. Binary Search" | "367. Valid Perfect Square";
+type LanguageName = "Java" | "Python" | "Javascript" | "Cpp";
+
+const algorithms: AlgorithmName[] = [
+  "704. Binary Search",
+  "367. Valid Perfect Square",
+];
+
+algorithms.sort((a, b) => {
+  const numA = parseInt(a.split(".")[0], 10);
+  const numB = parseInt(b.split(".")[0], 10);
+  return numA - numB;
+});
 
 const Main: React.FC = () => {
   const [isTypingStarted, setIsTypingStarted] = useState(false);
-  const [selectedAlgorithm, setSelectedAlgorithm] =
-    useState<AlgorithmName>("704. Binary Search");
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState<AlgorithmName>(
+    algorithms[Math.floor(Math.random() * algorithms.length)]
+  );
   const [selectedLanguage, setSelectedLanguage] =
     useState<LanguageName>("Java");
   const [algorithmContent, setAlgorithmContent] = useState<string>("");
@@ -97,7 +109,11 @@ const Main: React.FC = () => {
         e.preventDefault();
         setTabPressed(true);
       }
-      if ((isTypingStarted || typingComplete) && e.key === "Enter" && tabPressed) {
+      if (
+        (isTypingStarted || typingComplete) &&
+        e.key === "Enter" &&
+        tabPressed
+      ) {
         e.preventDefault();
         handleRestart();
       }

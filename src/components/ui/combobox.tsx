@@ -54,7 +54,7 @@ const Combobox: React.FC<ComboboxProps> = ({
         aria-expanded={open}
         aria-controls={menuId}
         onClick={() => (open ? closeMenu() : setOpen(true))}
-        className={`w-auto flex text-center justify-between items-center rounded px-1 py-1 interactive-item ${
+        className={`w-auto flex text-center justify-between items-center px-1 py-1 interactive-item ${
           open ? "active" : ""
         }`}
       >
@@ -63,7 +63,7 @@ const Combobox: React.FC<ComboboxProps> = ({
       {(open || closing) && (
         <div
           id={menuId}
-          className={`absolute mt-1 w-36 bg-[#0e0e0e] shadow rounded-xl z-10 ${
+          className={`absolute mt-1 w-auto bg-[#0e0e0e] shadow z-10 ${
             open ? "dropdown-animation" : "dropdown-close-animation"
           }`}
         >
@@ -85,7 +85,7 @@ const Combobox: React.FC<ComboboxProps> = ({
                   }}
                   className={`px-4 py-2 text-sm flex items-center  ${
                     value === option ? "text-white" : "text-[#c8c7c7]"
-                  } hover:text-black hover:bg-white cursor-pointer transition-colors duration-200`}
+                  } hover:text-black hover:bg-[#e6e6e6] cursor-pointer transition-all duration-200`}
                 >
                   {option}
                   {value === option && (

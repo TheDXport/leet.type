@@ -9,12 +9,18 @@ import {
 import Combobox from "@/components/ui/combobox";
 import Link from "next/link";
 
-type AlgorithmName = "704. Binary Search" | "Valid Perfect Square";
+type AlgorithmName = "704. Binary Search" | "367. Valid Perfect Square";
 
 const algorithms: AlgorithmName[] = [
   "704. Binary Search",
-  "Valid Perfect Square",
+  "367. Valid Perfect Square",
 ];
+
+algorithms.sort((a, b) => {
+  const numA = parseInt(a.split(".")[0], 10);
+  const numB = parseInt(b.split(".")[0], 10);
+  return numA - numB;
+});
 
 const rem = REM({
   variable: "--font-rem",
@@ -78,7 +84,7 @@ const Header: React.FC<HeaderProps> = ({
                       selectedLanguage === language
                         ? "bg-black"
                         : "bg-black text-[#c8c7c7]"
-                    } hover:bg-black hover:text-black cursor-pointer transition-colors duration-200`}
+                    } hover:bg-[#e6e6e6] hover:text-black cursor-pointer transition-colors duration-200`}
                 >
                   {language}
                   {selectedLanguage === language && (
