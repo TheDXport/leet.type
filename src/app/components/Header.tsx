@@ -110,49 +110,51 @@ const Header: React.FC<HeaderProps> = ({
           </Link>
         </div>
         <span className="hidden sm:inline">\</span>
-        <div>
-          <DropdownMenu>
-            <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center sm:text-lg md:text-xl">
-              {selectedLanguage}
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="bg-black text-[#f6f6f6]">
-              {languages.map((language) => (
-                <DropdownMenuItem
-                  key={language}
-                  onSelect={() => onLanguageSelect(language)}
-                  className={`flex
+        <div className="relative flex justify-center items-center space-x-2 md:space-x-2 lg:space-x-5">
+          <div className="flex items-start justify-center relative left-0">
+            <DropdownMenu>
+              <DropdownMenuTrigger className="interactive-item rounded-lg flex items-center sm:text-lg md:text-xl">
+                {selectedLanguage}
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-black text-[#f6f6f6]">
+                {languages.map((language) => (
+                  <DropdownMenuItem
+                    key={language}
+                    onSelect={() => onLanguageSelect(language)}
+                    className={`flex
                     ${
                       selectedLanguage === language
                         ? "bg-black"
                         : "bg-black text-[#c8c7c7]"
                     } hover:bg-[#e6e6e6] hover:text-black cursor-pointer transition-colors duration-200`}
-                >
-                  {language}
-                  {selectedLanguage === language && (
-                    <svg
-                      className="ml-auto w-4 h-4"
-                      viewBox="0 0 20 20"
-                      fill="currentColor"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M16.704 5.04a.75.75 0 010 1.06l-7.35 7.35a.75.75 0 01-1.06 0L3.296 8.394a.75.75 0 111.06-1.06L8.5 11.478l6.144-6.144a.75.75 0 011.06 0z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                  )}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-        <span className="hidden sm:inline">\</span>
-        <div className="">
-          <Combobox
-            options={algorithms}
-            value={selectedAlgorithm}
-            onSelect={(val) => onAlgorithmSelect(val as AlgorithmName)}
-          />
+                  >
+                    {language}
+                    {selectedLanguage === language && (
+                      <svg
+                        className="ml-auto w-4 h-4"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M16.704 5.04a.75.75 0 010 1.06l-7.35 7.35a.75.75 0 01-1.06 0L3.296 8.394a.75.75 0 111.06-1.06L8.5 11.478l6.144-6.144a.75.75 0 011.06 0z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                    )}
+                  </DropdownMenuItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+          <span className="hidden sm:inline">\</span>
+          <div className="">
+            <Combobox
+              options={algorithms}
+              value={selectedAlgorithm}
+              onSelect={(val) => onAlgorithmSelect(val as AlgorithmName)}
+            />
+          </div>
         </div>
       </div>
     </div>

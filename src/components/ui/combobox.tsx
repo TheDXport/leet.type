@@ -63,7 +63,7 @@ const Combobox: React.FC<ComboboxProps> = ({
       {(open || closing) && (
         <div
           id={menuId}
-          className={`absolute mt-1 w-auto bg-[#0e0e0e] shadow z-10 ${
+          className={`absolute mt-1 w-auto bg-[#0e0e0e] shadow z-10 w-52 ${
             open ? "dropdown-animation" : "dropdown-close-animation"
           }`}
         >
