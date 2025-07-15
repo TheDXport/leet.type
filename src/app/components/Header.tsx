@@ -100,7 +100,7 @@ const Header: React.FC<HeaderProps> = ({
         <span
           className={`${rem.className} text-[rgb(213,213,213)] font-bold sm:text-2xl md:text-2xl lg:text-4xl pb-2`}
         >
-          leet.typer
+          LeetType
         </span>
 
         <span className="hidden sm:inline">\</span>
