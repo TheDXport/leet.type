@@ -152,7 +152,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
               return (
                 <div
                   key={lineIndex}
-                  className="transition-all duration-500 sm:text-lg md:text-lg lg:text-2xl font-mono text-gray-300 ml-24 md:ml-0"
+                  className="transition-all duration-500 sm:text-lg md:text-lg lg:text-2xl font-mono text-gray-300 sm:ml-8 md:ml-0"
                 >
                   {line.split("").map((char, index) => {
                     const isCursor = isCurrentLine && index === charIndex;

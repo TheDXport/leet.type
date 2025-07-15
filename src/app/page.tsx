@@ -1,13 +1,20 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
+import { FaGithubSquare } from "react-icons/fa";
 import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
-import { IBM_Plex_Mono } from "next/font/google";
+import { IBM_Plex_Mono, Geist } from "next/font/google";
+import Link from "next/link";
 const ibmPlexMono = IBM_Plex_Mono({
   subsets: ["latin"],
   weight: ["400", "500", "700"],
+});
+
+const geist = Geist({
+  variable: "--font-geist",
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
 });
 
 type AlgorithmName =
@@ -188,7 +195,7 @@ const Main: React.FC = () => {
       }`}
     >
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative">
-        <div className="h-auto w-[99%] md:w-[90%] lg:w-[85%] md:ml-28 lg:ml-40 xl:ml-60 px-4 flex flex-col justify-start">
+        <div className="h-auto w-[99%] md:w-[90%] lg:w-[85%] md:ml-28 lg:ml-40 xl:ml-60 flex flex-col justify-start">
           <div
             className={`transition-opacity duration-500 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
@@ -235,11 +242,32 @@ const Main: React.FC = () => {
           )}
         </div>
         <h1
-          className={`flex justify-start ${ibmPlexMono.className} text-[#646464] font-medium top-40 relative space-x-3`}
+          className={`flex justify-start ${ibmPlexMono.className} text-[#646464] sm:text-xs md:text-md lg:text-lg font-medium top-40 relative space-x-3`}
         >
-          <span className="italic">tab + enter</span>
+          <span className="italic">
+            <span className="border-2 px-3 py-1 rounded-md border-[#646464]">
+              tab
+            </span>{" "}
+            +{" "}
+            <span className="border-2 px-3 py-1 rounded-md border-[#646464]">
+              enter
+            </span>
+          </span>
           <span>to restart</span>
         </h1>
+        <footer className="fixed bottom-6 right-6 flex items-center justif-center space-x-3">
+          <h2
+            className={`text-[#484b52] ${geist.className} font-semibold sm:text-sm md:text-lg transition-all duration-300 hover:text-gray-200 hover:-translate-y-1`}
+          >
+            made by xinathan
+          </h2>
+          <Link href="https://github.com/TheDXport/leet.type" className="group">
+            <FaGithubSquare
+              size={32}
+              className="text-[#484b52] transition-all duration-300 group-hover:text-gray-200 group-hover:-translate-y-1"
+            />
+          </Link>
+        </footer>
       </div>
     </div>
   );

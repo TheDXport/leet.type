@@ -14,8 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LeetTyper",
-  description: "",
+  title: "LeetType",
+  description:
+    "Practice common LeetCode algorithms in multiple programming languages with instant feedback on your speed and accuracy",
 };
 
 export default function RootLayout({
@@ -28,14 +29,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {/* Show notice for screens below the `sm` breakpoint */}
         <div className="sm:hidden flex flex-col items-center justify-center min-h-screen bg-black text-white text-center space-y-4">
           <FaDesktop size={40} />
           <div className="w-[40%] ">
             <p className="font-bold">Please use a desktop view to access</p>
           </div>
         </div>
-        {/* Render the app for screens `sm` and above */}
         <div className="hidden sm:block">{children}</div>
       </body>
     </html>
