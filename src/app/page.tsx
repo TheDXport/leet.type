@@ -89,7 +89,7 @@ const Main: React.FC = () => {
     const fetchAlgorithmContent = async () => {
       try {
         const algorithmFolder = selectedAlgorithm.replace(/\s+/g, "");
-        const baseName = selectedAlgorithm.replace(/\s+/g, "").toLowerCase();
+        const baseName = selectedAlgorithm.replace(/\s+/g, "");
 
         const extensions: Record<LanguageName, string> = {
           Java: "java",
