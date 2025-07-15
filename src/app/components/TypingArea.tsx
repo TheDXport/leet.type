@@ -138,7 +138,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
       ref={typingContainerRef}
       tabIndex={0}
       onKeyDown={handleTyping}
-      className="w-full overflow-hidden outline-none flex flex-col ml-10 sm:ml-3 "
+      className="w-full overflow-hidden outline-none flex flex-col  "
     >
       <div className={`space-y-4 ${lineTransition ? "slide-up" : ""}`}>
         {(() => {
@@ -152,7 +152,7 @@ const TypingArea: React.FC<TypingAreaProps> = ({
               return (
                 <div
                   key={lineIndex}
-                  className="transition-all duration-500 sm:text-2xl md:text-2xl font-mono text-gray-300"
+                  className="transition-all duration-500 sm:text-lg md:text-lg lg:text-2xl font-mono text-gray-300 ml-24 md:ml-0"
                 >
                   {line.split("").map((char, index) => {
                     const isCursor = isCurrentLine && index === charIndex;

@@ -4,6 +4,11 @@ import React, { useState, useEffect } from "react";
 import Header from "./components/Header";
 import TypingArea from "./components/TypingArea";
 import FadeSwitch from "./components/FadeSwitch";
+import { IBM_Plex_Mono } from "next/font/google";
+const ibmPlexMono = IBM_Plex_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+});
 
 type AlgorithmName =
   | "1. Two Sum"
@@ -183,7 +188,7 @@ const Main: React.FC = () => {
       }`}
     >
       <div className="min-h-screen overflow-x-auto flex flex-col justify-center items-center relative">
-        <div className=" w-[99%] md:w-[90%] lg:w-[85%] md:ml-32 lg:ml-40 xl:ml-60 px-4 flex flex-col justify-center">
+        <div className="h-auto w-[99%] md:w-[90%] lg:w-[85%] md:ml-28 lg:ml-40 xl:ml-60 px-4 flex flex-col justify-start">
           <div
             className={`transition-opacity duration-500 ${
               isTypingStarted ? "opacity-0 pointer-events-none" : "opacity-100"
@@ -222,13 +227,19 @@ const Main: React.FC = () => {
             >
               <TypingArea
                 key={restartCounter}
-                lines={algorithmContent.split("\n")} // Split the markdown content into lines
-                onTypingStart={handleTypingStart} // Pass the callback to TypingArea
-                onTypingComplete={handleTypingComplete} // Pass the callback to TypingArea
+                lines={algorithmContent.split("\n")}
+                onTypingStart={handleTypingStart}
+                onTypingComplete={handleTypingComplete}
               />
             </div>
           )}
         </div>
+        <h1
+          className={`flex justify-start ${ibmPlexMono.className} text-[#646464] font-medium top-40 relative space-x-3`}
+        >
+          <span className="italic">tab + enter</span>
+          <span>to restart</span>
+        </h1>
       </div>
     </div>
   );

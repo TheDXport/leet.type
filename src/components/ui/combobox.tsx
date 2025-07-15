@@ -63,7 +63,7 @@ const Combobox: React.FC<ComboboxProps> = ({
       {(open || closing) && (
         <div
           id={menuId}
-          className={`absolute mt-1 w-auto bg-[#0e0e0e] shadow z-10 w-52 ${
+          className={`absolute mt-1 bg-[#0e0e0e] shadow z-10 w-52 ${
             open ? "dropdown-animation" : "dropdown-close-animation"
           }`}
         >
@@ -73,7 +73,7 @@ const Combobox: React.FC<ComboboxProps> = ({
             value={filter}
             onChange={(e) => setFilter(e.target.value)}
           />
-          <div className="max-h-40 overflow-auto">
+          <div className="max-h-40 overflow-auto no-scrollbar ">
             {filtered.length ? (
               filtered.map((option) => (
                 <div

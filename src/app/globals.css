@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
@@ -68,7 +79,7 @@ body {
   left: 0;
   bottom: -2px;
   width: 0;
-  height: 1.7px;
+  height: 2px;
   background-color: currentColor;
   transition: width 0.35s;
   border-radius: 25%;
