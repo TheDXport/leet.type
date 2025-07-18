@@ -130,14 +130,26 @@ const Main: React.FC = () => {
     }
   };
 
-  const handleTypingComplete = (errors: number) => {
-    setTotalErrors(errors);
-    if (startTime) {
-      const endTime = Date.now();
-      setTimeElapsed((endTime - startTime) / 1000); // Convert ms to seconds
-    }
-    setTypingComplete(true);
-  };
+const handleTypingComplete = (errors: number) => {
+  setTotalErrors(errors);
+  if (startTime) {
+    const endTime = Date.now();
+    setTimeElapsed((endTime - startTime) / 1000); // Convert ms to seconds
+  }
+  setTypingComplete(true);
+};
+
+  useEffect(() => {
+    const handleRestart = (e: KeyboardEvent) => {
+      if ((e.ctrlKey || e.metaKey) && e.key === "Tab") {
+        e.preventDefault();
+        window.location.href = "/";
+      }
+    };
+
+    window.addEventListener("keydown", handleRestart);
+    return () => window.removeEventListener("keydown", handleRestart);
+  }, []);
 
   const handleRestart = () => {
     if (typingComplete) {
